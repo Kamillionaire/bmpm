@@ -1,0 +1,23 @@
+<md-card md-colors="{background:'default-primary'}">
+
+  <md-card-content>
+    <md-input-container>
+      <label for="name">Name</label>
+      <input type="text" ng-model="vm.boxer.name" name="name">
+    </md-input-container>
+    <md-input-container>
+      <label for="age">Age</label>
+      <input type="number" ng-model="vm.boxer.age" name="age">
+    </md-input-container>
+    <md-input-container>
+      <label for="weight">Weight</label>
+      <input type="number" ng-model="vm.boxer.weight" name="weight">
+    </md-input-container>
+  </md-card-content>
+
+  <md-card-actions>
+    <md-button ng-click="vm.submit()">Submit</md-button>
+  </md-card-actions>
+
+
+</md-card>
