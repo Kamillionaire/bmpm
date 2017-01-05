@@ -2,6 +2,7 @@
 var express = require("express");
 var passport = require("passport");
 var Users_1 = require("../models/Users");
+var methods_1 = require("./methods");
 var router = express.Router();
 router.get('/users/:id', function (req, res, next) {
     Users_1.default.findOne(req.params._id).select('-passwordHash -salt').then(function (user) {
@@ -11,6 +12,7 @@ router.get('/users/:id', function (req, res, next) {
     });
 });
 router.get('/currentuser', function (req, res, next) {
+    console.log(req.user);
     if (!req.user)
         return res.json({});
     return res.json(req.user);
@@ -33,13 +35,8 @@ router.post('/login/local', function (req, res, next) {
     passport.authenticate('local', function (err, user, info) {
         if (err)
             return next(err);
-        if (user) {
-            return req.logIn(user, function (e) {
-                if (e)
-                    return next(e);
-                res.redirect('/');
-            });
-        }
+        if (user)
+            return methods_1.default.setSession(req, res, next, user);
         return res.status(400).json(info);
     })(req, res, next);
 });

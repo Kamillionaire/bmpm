@@ -44,7 +44,7 @@ passport.use(new FacebookStrategy({
 ));
 
 passport.use(new LocalStrategy(function(username: String, password: string, done) {
-  User.findOne({ username: username }, function(err, user) {
+  Users.findOne({ username: username }, function(err, user) {
     if(err) return done(err);
     if(!user) return done(null, false, { message: 'Incorrect username.' });
     if(!user.validatePassword(password)) return done(null, false, { message: 'Password does not match.' });

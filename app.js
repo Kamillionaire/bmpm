@@ -4,6 +4,8 @@ var bodyParser = require("body-parser");
 var path = require("path");
 var mongoose = require("mongoose");
 var passport = require("passport");
+var session = require("express-session");
+var MongoStore = require('connect-mongo')(session);
 var Users_1 = require("./models/Users");
 var index_1 = require("./routes/index");
 var app = express();
@@ -39,6 +41,25 @@ mongoose.connection.on('error', function (e) {
 });
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.set('trust proxy', 1);
+var sess = {
+    maxAge: 172800000,
+    secure: false,
+    httpOnly: true
+};
+if (app.get('env') === 'production') {
+    sess.secure = true;
+}
+app.use(session({
+    cookie: sess,
+    secret: process.env.SESSION_SECRET,
+    store: new MongoStore({
+        url: process.env.MONGO_URI
+    }),
+    unset: 'destroy',
+    resave: false,
+    saveUninitialized: false
+}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
@@ -48,6 +69,7 @@ app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
 app.use('/ngApp', express.static(path.join(__dirname, 'ngApp')));
 app.use('/', index_1.default);
 app.use('/api', require('./api/boxers'));
+app.use('/api', require('./api/users'));
 app.get('/*', function (req, res, next) {
     if (/.js|.html|.css|templates|js|scripts/.test(req.path) || req.xhr) {
         return next({ status: 404, message: 'Not Found' });

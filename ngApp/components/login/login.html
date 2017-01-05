@@ -4,9 +4,9 @@
   <a href="/login/facebook">Login with Facebook</a>
 </p>
 <form ng-submit="vm.login(vm.user)">
-  <label>User Name</label>
-  <input type="text" ng-model="vm.user.username">
-  <label>Password</label>
-  <input type="password" ng-model="vm.user.password">
-  <button type="submit">Submit</button>
+<md-input-container><label>User Name</label>
+  <input type="text" ng-model="vm.user.username"></md-input-container>
+<md-input-container><label>Password</label>
+  <input type="password" ng-model="vm.user.password"></md-input-container>
+  <md-button type="submit">Submit</md-button>
 </form>

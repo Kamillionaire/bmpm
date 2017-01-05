@@ -4,6 +4,8 @@ import * as ejs from 'ejs';
 import * as path from 'path';
 import * as mongoose from 'mongoose';
 import * as passport from 'passport';
+import * as session from 'express-session';
+const MongoStore = require('connect-mongo')(session)
 import Users from './models/Users';
 //express routes
 import routes from './routes/index';
@@ -59,6 +61,30 @@ mongoose.connection.on('error', (e) => {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+//config req.session your session
+app.set('trust proxy', 1); // trust first proxy
+let sess = {
+  maxAge: 172800000, // 2 days
+  secure: false,
+  httpOnly: true
+}
+
+//set to secure in production
+if (app.get('env') === 'production') {
+  sess.secure = true // serve secure cookies
+}
+
+//use session config
+app.use(session({
+  cookie: sess,
+  secret: process.env.SESSION_SECRET, // can support an array
+  store: new MongoStore({
+    url: process.env.MONGO_URI
+  }),
+  unset: 'destroy',
+  resave: false,
+  saveUninitialized: false //if nothing has changed.. do not restore cookie
+}));
 //config bodyParser
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -75,6 +101,7 @@ app.use('/', routes);
 
 //apis
 app.use('/api', require('./api/boxers'));
+app.use('/api', require('./api/users'));
 
 // redirect 404 to home for the sake of AngularJS client-side routes
 app.get('/*', function(req, res, next) {

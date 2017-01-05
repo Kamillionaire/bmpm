@@ -9,6 +9,14 @@ var BMPM;
                 this.UserService = UserService;
                 this.$state = $state;
             }
+            Login.prototype.login = function (user) {
+                var _this = this;
+                this.UserService.login(user).then(function (res) {
+                    _this.$state.go('main.home', null, { reload: true, notify: true });
+                }).catch(function (err) {
+                    alert('Bunk login, please try again.');
+                });
+            };
             return Login;
         }());
         Components.Login = Login;
