@@ -1,0 +1,12 @@
+<h1>Login</h1>
+
+<p>
+  <a href="/login/facebook">Login with Facebook</a>
+</p>
+<form ng-submit="vm.login(vm.user)">
+  <label>User Name</label>
+  <input type="text" ng-model="vm.user.username">
+  <label>Password</label>
+  <input type="password" ng-model="vm.user.password">
+  <button type="submit">Submit</button>
+</form>

@@ -1,4 +1,4 @@
-namespace chThreeApp.Components {
+namespace BMPM.Components {
   //component config
   //boxerCard translates to <boxer-card boxer="vm.boxer"></boxer-card>
   const name = 'boxerCard'
@@ -7,7 +7,7 @@ namespace chThreeApp.Components {
   export class BoxerCard {
     public boxer;
     constructor(
-      private BoxerService: chThreeApp.Services.BoxerService
+      private BoxerService: BMPM.Services.BoxerService
     ) {
     }
 
@@ -21,9 +21,9 @@ namespace chThreeApp.Components {
     }
   }
 
-  angular.module('ch-three-app').component(name, {
+  angular.module('bmpm').component(name, {
     templateUrl: template,
-    controller: chThreeApp.Components.BoxerCard,
+    controller: BMPM.Components.BoxerCard,
     controllerAs: 'vm',
     bindings: {
       boxer: '<'

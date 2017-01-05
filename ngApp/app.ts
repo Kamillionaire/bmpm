@@ -1,5 +1,5 @@
-namespace chThreeApp {
-  angular.module('ch-three-app', ['ngResource', 'ui.router', 'ngMaterial'])
+namespace BMPM {
+  angular.module('bmpm', ['ngResource', 'ui.router', 'ngMaterial'])
     .config((
       $resourceProvider: ng.resource.IResourceServiceProvider,
       $stateProvider: ng.ui.IStateProvider,
@@ -8,9 +8,32 @@ namespace chThreeApp {
       $mdThemingProvider: angular.material.IThemingProvider
     ) => {
       $stateProvider
-        .state('home', {
+        .state('main', {
+          url: '',
+          abstract: true,
+          template: '<main-app></main-app>',
+          resolve: {
+            currentUser: [
+              'UserService', '$state', (UserService, $state) => {
+                return UserService.getCurrentUser((user) => {
+                  return user;
+                }).catch((e) => {
+                  return { username: false };
+                });
+              }]
+          },
+          component:'mainApp'
+        })
+        .state('main.home', {
           url: '/',
           template: '<boxer-list></boxer-list>'
+        })
+        .state('main.login', {
+          url: '/',
+          template: '<login></login>'
+        }).state('main.register', {
+          url: '/',
+          template: '<registration></registration>'
         })
 
       $urlRouterProvider.otherwise('/');

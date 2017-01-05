@@ -1,5 +1,5 @@
-var chThreeApp;
-(function (chThreeApp) {
+var BMPM;
+(function (BMPM) {
     var Components;
     (function (Components) {
         var name = 'boxerCard';
@@ -18,13 +18,13 @@ var chThreeApp;
             return BoxerCard;
         }());
         Components.BoxerCard = BoxerCard;
-        angular.module('ch-three-app').component(name, {
+        angular.module('bmpm').component(name, {
             templateUrl: template,
-            controller: chThreeApp.Components.BoxerCard,
+            controller: BMPM.Components.BoxerCard,
             controllerAs: 'vm',
             bindings: {
                 boxer: '<'
             }
         });
-    })(Components = chThreeApp.Components || (chThreeApp.Components = {}));
-})(chThreeApp || (chThreeApp = {}));
+    })(Components = BMPM.Components || (BMPM.Components = {}));
+})(BMPM || (BMPM = {}));

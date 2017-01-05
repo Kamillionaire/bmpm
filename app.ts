@@ -3,7 +3,8 @@ import * as bodyParser from 'body-parser';
 import * as ejs from 'ejs';
 import * as path from 'path';
 import * as mongoose from 'mongoose';
-
+import * as passport from 'passport';
+import Users from './models/Users';
 //express routes
 import routes from './routes/index';
 
@@ -19,6 +20,7 @@ if(dev){
   let dotenv = require('dotenv');
   dotenv.load();
 }
+require("./config/passport");
 
 //db connections
 // mongodb://user:password@sub.mlab.com:39482/myapp
@@ -34,6 +36,18 @@ mongoose.connection.on('connected', () => {
     mongoose.connection.db.dropDatabase();
     require('./models/seeds/index');
   }
+
+  Users.findOne({username: 'admin'}, (err, user) => {
+    if(err) return;
+    if(user) return;
+    if(!user)
+      var admin = new Users();
+      admin.email = process.env.ADMIN_EMAIL;
+      admin.username = process.env.ADMIN_USERNAME;
+      admin.setPassword(process.env.ADMIN_PASSWORD);
+      admin.roles = ['user', 'admin'];
+      admin.save();
+  });
 });
 
 //optional
@@ -48,6 +62,8 @@ app.set('view engine', 'ejs');
 //config bodyParser
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(passport.session());
 
 //static routing
 app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));

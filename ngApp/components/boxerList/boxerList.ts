@@ -1,4 +1,4 @@
-namespace chThreeApp.Components {
+namespace BMPM.Components {
     //component config
     //boxerList translates to <boxer-list></boxer-list>
     const name = 'boxerList'
@@ -7,7 +7,7 @@ namespace chThreeApp.Components {
     export class BoxerList {
       public boxers;
       constructor(
-        private BoxerService: chThreeApp.Services.BoxerService,
+        private BoxerService: BMPM.Services.BoxerService,
       ) {
         this.BoxerService.getBoxers()
           .then((data) => {
@@ -19,9 +19,9 @@ namespace chThreeApp.Components {
       }
     }
 
-    angular.module('ch-three-app').component(name, {
+    angular.module('bmpm').component(name, {
       templateUrl: template,
-      controller: chThreeApp.Components.BoxerList,
+      controller: BMPM.Components.BoxerList,
       controllerAs: 'vm'
     });
   }

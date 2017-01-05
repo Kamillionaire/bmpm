@@ -1,5 +1,5 @@
-var chThreeApp;
-(function (chThreeApp) {
+var BMPM;
+(function (BMPM) {
     var Components;
     (function (Components) {
         var name = 'boxerList';
@@ -19,10 +19,10 @@ var chThreeApp;
             return BoxerList;
         }());
         Components.BoxerList = BoxerList;
-        angular.module('ch-three-app').component(name, {
+        angular.module('bmpm').component(name, {
             templateUrl: template,
-            controller: chThreeApp.Components.BoxerList,
+            controller: BMPM.Components.BoxerList,
             controllerAs: 'vm'
         });
-    })(Components = chThreeApp.Components || (chThreeApp.Components = {}));
-})(chThreeApp || (chThreeApp = {}));
+    })(Components = BMPM.Components || (BMPM.Components = {}));
+})(BMPM || (BMPM = {}));
