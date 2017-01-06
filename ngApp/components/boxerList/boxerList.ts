@@ -6,9 +6,18 @@ namespace BMPM.Components {
 
     export class BoxerList {
       public boxers;
+      public currentUser;
       constructor(
         private BoxerService: BMPM.Services.BoxerService,
+        private $state: ng.ui.IStateService
       ) {
+
+        $state.$current.locals.globals['currentUser'].$promise
+        .then((user) => {
+          this.currentUser = user;
+        }).catch((user) => {
+          this.currentUser = user;
+        });
         this.BoxerService.getBoxers()
           .then((data) => {
             this.boxers = data;

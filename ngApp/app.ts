@@ -26,22 +26,25 @@ namespace BMPM {
         })
         .state('main.home', {
           url: '/',
-          template: '<boxer-list></boxer-list>'
+          template: '<boxer-list></boxer-list>',
+          parent: 'main'
         })
         .state('main.login', {
           url: '/',
-          template: '<login></login>'
+          template: '<login></login>',
+          parent: 'main'
         }).state('main.register', {
           url: '/',
-          template: '<registration></registration>'
+          template: '<registration></registration>',
+          parent: 'main'
         })
 
       $urlRouterProvider.otherwise('/');
       $locationProvider.html5Mode(true);
       $mdThemingProvider.theme('default')
-        .primaryPalette('deep-purple')
-        .accentPalette('orange')
-        .backgroundPalette('pink')
+        .primaryPalette('cyan')
+        .accentPalette('green')
+        .backgroundPalette('green')
         .dark();
     })
     .run(() => {});

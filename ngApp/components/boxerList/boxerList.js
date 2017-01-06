@@ -5,9 +5,16 @@ var BMPM;
         var name = 'boxerList';
         var template = '/ngApp/components/boxerList/boxerList.html';
         var BoxerList = (function () {
-            function BoxerList(BoxerService) {
+            function BoxerList(BoxerService, $state) {
                 var _this = this;
                 this.BoxerService = BoxerService;
+                this.$state = $state;
+                $state.$current.locals.globals['currentUser'].$promise
+                    .then(function (user) {
+                    _this.currentUser = user;
+                }).catch(function (user) {
+                    _this.currentUser = user;
+                });
                 this.BoxerService.getBoxers()
                     .then(function (data) {
                     _this.boxers = data;

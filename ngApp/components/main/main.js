@@ -6,8 +6,15 @@ var BMPM;
         var template = '/ngApp/components/main/main.html';
         var Main = (function () {
             function Main(UserService, $state) {
+                var _this = this;
                 this.UserService = UserService;
                 this.$state = $state;
+                $state.$current.locals.globals['currentUser'].$promise
+                    .then(function (user) {
+                    _this.currentUser = user;
+                }).catch(function (user) {
+                    _this.currentUser = user;
+                });
             }
             return Main;
         }());

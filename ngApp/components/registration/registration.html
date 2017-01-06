@@ -8,5 +8,16 @@
   <hr/>
   <md-input-container><label>Password</label>
   <input type="password" ng-model="vm.user.password"></md-input-container>
+
+  <md-input-container class="md-block" flex-gt-sm>
+            <label>State</label>
+            <md-select ng-model="vm.user.state">
+              <md-option ng-repeat="state in vm.states" value="{{state}}">
+                {{state}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+
   <md-button type="submit">Submit</md-button>
+
 </form>

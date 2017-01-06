@@ -25,12 +25,14 @@ let UserSchema = new mongoose.Schema({
   username: { type: String, lowercase: true, unique: true},
   email: { type: String, unique: true, lowercase: true },
   passwordHash: String,
+  state: String,
   salt: String,
   facebookId: String,
   facebook: {
     token: String,
     name: String,
     email: String
+
   },
   roles: {type: Array, default: ['user']}
 });
