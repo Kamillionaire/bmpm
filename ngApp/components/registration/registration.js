@@ -16,6 +16,13 @@ var BMPM;
                     'ISTJ(-A/-T) ISFJ(-A/-T) ESTJ(-A/-T) ESFJ(-A/-T) ' +
                     'ISTP(-A/-T) ISFP(-A/-T) ESTP(-A/-T) ESFP(-A/-T)').split(' ');
             }
+            Registration.prototype.register = function (user) {
+                this.UserService.register(user).then(function (result) {
+                    alert('Successful login!');
+                }).catch(function (e) {
+                    throw new Error(e);
+                });
+            };
             return Registration;
         }());
         Components.Registration = Registration;

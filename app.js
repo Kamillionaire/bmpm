@@ -31,6 +31,8 @@ mongoose.connection.on('connected', function () {
             var admin = new Users_1.default();
         admin.email = process.env.ADMIN_EMAIL;
         admin.username = process.env.ADMIN_USERNAME;
+        admin.state = 'state';
+        admin.personality = 'personality';
         admin.setPassword(process.env.ADMIN_PASSWORD);
         admin.roles = ['user', 'admin'];
         admin.save();
