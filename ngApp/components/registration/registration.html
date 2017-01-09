@@ -8,7 +8,7 @@
   <hr/>
   <md-input-container><label>Password</label>
   <input type="password" ng-model="vm.user.password"></md-input-container>
-
+  <hr/>
   <md-input-container class="md-block" flex-gt-sm>
             <label>State</label>
             <md-select ng-model="vm.user.state">
@@ -17,6 +17,16 @@
               </md-option>
             </md-select>
           </md-input-container>
+  <hr/>
+  <md-input-container class="md-block" flex-gt-sm>
+            <label>Select Personality</label>
+            <md-select ng-model="vm.user.personality">
+              <md-option ng-repeat="personality in vm.personalities" value="{{personality}}">
+                {{personality}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+  <hr/>
 
   <md-button type="submit">Submit</md-button>
 

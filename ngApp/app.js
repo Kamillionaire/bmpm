@@ -37,9 +37,9 @@ var BMPM;
         $urlRouterProvider.otherwise('/');
         $locationProvider.html5Mode(true);
         $mdThemingProvider.theme('default')
-            .primaryPalette('cyan')
-            .accentPalette('green')
-            .backgroundPalette('green')
+            .primaryPalette('blue')
+            .accentPalette('yellow')
+            .backgroundPalette('cyan')
             .dark();
     })
         .run(function () { });
