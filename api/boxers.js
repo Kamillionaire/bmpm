@@ -5,21 +5,21 @@ var router = express.Router();
 router.get('/boxers', function (req, res, next) {
     Boxers_1.default.find({}, {}, function (e, data) {
         if (e)
-            return res.status(500);
+            return next({ message: 'Boxers not found', Error: e });
         res.json(data);
     });
 });
 router.post('/boxers', function (req, res, next) {
     Boxers_1.default.create(req.body, function (e, data) {
         if (e)
-            return res.status(500);
+            return next({ message: 'Boxers not found', Error: e });
         res.json(data);
     });
 });
 router.put('/boxers/:id', function (req, res, next) {
     Boxers_1.default.update({ _id: req.params.id }, req.body, {}, function (e, data) {
         if (e)
-            return res.status(500);
+            return next({ message: 'Boxers not found', Error: e });
         res.json(data);
     });
 });

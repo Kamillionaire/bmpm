@@ -6,7 +6,7 @@ let router = express.Router();
 //TODO paginated
 router.get('/boxers', (req, res, next) => {
   Boxers.find({}, {}, (e, data) => {
-    if(e) return res.status(500);
+    if(e) return next({message:'Boxers not found', Error:e});
     res.json(data);
   });
 });
@@ -14,7 +14,7 @@ router.get('/boxers', (req, res, next) => {
 //new
 router.post('/boxers', (req, res, next) => {
   Boxers.create(req.body, (e, data) => {
-    if(e) return res.status(500);
+    if(e) return next({message:'Boxers not found', Error:e});
     res.json(data);
   })
 });
@@ -26,7 +26,7 @@ router.put('/boxers/:id', (req, res, next) => {
     req.body,
     {},
     (e, data) => {
-      if(e) return res.status(500);
+      if(e) return next({message:'Boxers not found', Error:e});
       res.json(data);
     });
 });
