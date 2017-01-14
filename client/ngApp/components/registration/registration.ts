@@ -10,12 +10,12 @@ namespace BMPM.Components{
         private UserService: BMPM.Services.UserService,
         private $state: ng.ui.IStateService
       ){}
-  personalities= ('INTJ(-A/-T) INTP(-A/-T) ENTJ(-A/-T) ENTP(-A/-T) ' +
+  pTypes= ('INTJ(-A/-T) INTP(-A/-T) ENTJ(-A/-T) ENTP(-A/-T) ' +
                   'INFJ(-A/-T) INFP(-A/-T) ENFJ(-A/-T) ENFP(-A/-T) ' +
                   'ISTJ(-A/-T) ISFJ(-A/-T) ESTJ(-A/-T) ESFJ(-A/-T) ' +
                   'ISTP(-A/-T) ISFP(-A/-T) ESTP(-A/-T) ESFP(-A/-T)').split(' ');
 
-    //TODO states and personality types can be constants.
+    //TODO states and pType types can be constants.
     // logout() {
     //   this.UserService.logout().then(() => {
     //     this.$state.go('registration.home', null, {reload: true, notify:true});

@@ -27,7 +27,7 @@ router.post('/Register', function(req, res, next) {
   user.username = req.body.username;
   user.email = req.body.email;
   user.state = req.body.state;
-  user.personality = req.body.personality;
+  user.pType = req.body.pType;
   user.setPassword(req.body.password);
   user.save(function(err, user) {
     if(err) return next(err);

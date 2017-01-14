@@ -1,6 +1,4 @@
-import {PType} from '../PTypes';
-
-const seeds = [
+[
 {type:'INTJ', name:'Architect', detail:'Imaginative and strategic thinkers, with a plan for everything.'},
 {type:'INTP', name:'Logician', detail:'Innovative inventors with an unquenchable thirst for knowledge.'},
 {type:'ENTJ', name:'Comander', detail:'Bold, imaginative and strong-willed leaders, always finding a way – or making one.'},
@@ -18,10 +16,3 @@ const seeds = [
 {type:'ESTP', name:'Entrepreneur', detail:'Smart, energetic and very perceptive people, who truly enjoy living on the edge.'},
 {type:'ESFP', name:'Entertainer', detail:'Spontaneous, energetic and enthusiastic people – life is never boring around them.'}
 ]
-
-seeds.map((seed) => {
-  PType.create(seed, (e, data) => {
-    if(e) throw new Error(e);
-    console.log(`Created ${data.type} in the ${PType.modelName} collection as ${data._id}`);
-  });
-});

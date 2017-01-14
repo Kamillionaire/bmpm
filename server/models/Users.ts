@@ -12,7 +12,7 @@ export interface IUser extends mongoose.Document {
   username: { type: String, lowercase: true, unique: true},
   email: { type: String, unique: true, lowercase: true },
   state: String,
-  personality: String,
+  pType: String,
   passwordHash: String,
   salt: String,
   facebookId: String,
@@ -28,14 +28,13 @@ let UserSchema = new mongoose.Schema({
   email: { type: String, required:true, unique: true, lowercase: true },
   passwordHash: String,
   state: {type: String, required: true},
-  personality: {type: String, required: true},
+  pType: {type: String, required: true},
   salt: String,
   facebookId: String,
   facebook: {
     token: String,
     name: String,
     email: String
-
   },
   roles: {type: Array, default: ['user']}
 });

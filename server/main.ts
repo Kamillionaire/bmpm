@@ -8,7 +8,7 @@ import * as session from 'express-session';
 const MongoStore = require('connect-mongo')(session)
 import Users from './models/Users';
 //express routes
-import routes from './routes/index';
+import routes from './../server/routes/index';
 
 //init express and assign it to app var
 //INITIATE THE APP
@@ -47,7 +47,7 @@ mongoose.connection.on('connected', () => {
       admin.email = process.env.ADMIN_EMAIL;
       admin.username = process.env.ADMIN_USERNAME;
       admin.state= 'state';
-      admin.personality= 'personality';
+      admin.pType= 'pType';
       admin.setPassword(process.env.ADMIN_PASSWORD);
       admin.roles = ['user', 'admin'];
       admin.save();

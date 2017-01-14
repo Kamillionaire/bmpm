@@ -7,7 +7,7 @@ var UserSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true, lowercase: true },
     passwordHash: String,
     state: { type: String, required: true },
-    personality: { type: String, required: true },
+    pType: { type: String, required: true },
     salt: String,
     facebookId: String,
     facebook: {
