@@ -32,7 +32,7 @@ mongoose.connect(process.env.MONGO_URI);
 //optional
 mongoose.connection.on('connected', () => {
   console.log('mongoose connected');
-
+  console.log(__dirname)
   //if dev seed the deb
   if(dev) {
     mongoose.connection.db.dropDatabase();
@@ -65,6 +65,15 @@ app.set('view engine', 'ejs');
 
 //config req.session your session
 app.set('trust proxy', 1); // trust first proxy
+
+//static routing
+app.use('/bower_components', express.static(path.join(__dirname,'../bower_components')));
+app.use('/node_modules', express.static(path.join(__dirname, '../node_modules')));
+app.use('/client', express.static(path.join(__dirname,'../client')));
+
+//a server route
+app.use('/', require('./routes/index'));
+
 let sess = {
   maxAge: 172800000, // 2 days
   secure: false,
@@ -92,17 +101,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
-
-//static routing
-app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
-app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
-app.use('/ngApp', express.static(path.join(__dirname, 'ngApp')));
-
-//a server route
-app.use('/', routes);
-
 //apis
-app.use('/api', require('./api/boxers'));
 app.use('/api', require('./api/users'));
 
 // redirect 404 to home for the sake of AngularJS client-side routes

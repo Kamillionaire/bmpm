@@ -3,7 +3,7 @@ var BMPM;
     var Components;
     (function (Components) {
         var name = 'navigation';
-        var template = '/ngApp/components/navigation/navigation.html';
+        var template = '/client/ngApp/components/navigation/navigation.html';
         var Navigation = (function () {
             function Navigation() {
             }

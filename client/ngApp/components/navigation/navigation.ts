@@ -1,6 +1,6 @@
 namespace BMPM.Components{
   const name='navigation';
-  const template='/ngApp/components/navigation/navigation.html';
+  const template='/client/ngApp/components/navigation/navigation.html';
   export class Navigation {
 
     // constructor(

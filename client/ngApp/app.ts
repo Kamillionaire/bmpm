@@ -1,11 +1,10 @@
 namespace BMPM {
-  angular.module('bmpm', ['ngResource', 'ui.router', 'ngMaterial'])
+  angular.module('bmpm', ['ngResource', 'ui.router'])
     .config((
       $resourceProvider: ng.resource.IResourceServiceProvider,
       $stateProvider: ng.ui.IStateProvider,
       $urlRouterProvider: ng.ui.IUrlRouterProvider,
-      $locationProvider: ng.ILocationProvider,
-      $mdThemingProvider: angular.material.IThemingProvider
+      $locationProvider: ng.ILocationProvider
     ) => {
       $stateProvider
         .state('main', {
@@ -26,7 +25,7 @@ namespace BMPM {
         })
         .state('main.home', {
           url: '/',
-          template: '<boxer-list></boxer-list>',
+          template: '<h1>Welcome Page</h1>',
           parent: 'main'
         })
         .state('main.login', {
@@ -41,11 +40,6 @@ namespace BMPM {
 
       $urlRouterProvider.otherwise('/');
       $locationProvider.html5Mode(true);
-      $mdThemingProvider.theme('default')
-        .primaryPalette('blue')
-        .accentPalette('yellow')
-        .backgroundPalette('cyan')
-        .dark();
     })
     .run(() => {});
 }

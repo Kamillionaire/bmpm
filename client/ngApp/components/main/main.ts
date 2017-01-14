@@ -1,8 +1,8 @@
 namespace BMPM.Components{
   const name='mainApp';
-  const template='/ngApp/components/main/main.html';
+  const template='/client/ngApp/components/main/main.html';
   export class Main {
-      public currentUser; 
+      public currentUser;
     constructor(
       private UserService: BMPM.Services.UserService,
       private $state: ng.ui.IStateService,

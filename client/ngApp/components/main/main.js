@@ -3,7 +3,7 @@ var BMPM;
     var Components;
     (function (Components) {
         var name = 'mainApp';
-        var template = '/ngApp/components/main/main.html';
+        var template = '/client/ngApp/components/main/main.html';
         var Main = (function () {
             function Main(UserService, $state) {
                 var _this = this;

@@ -5,4 +5,4 @@ router.get('/', (req, res, next) => {
   res.render('index');
 });
 
-export default router;
+export= router;

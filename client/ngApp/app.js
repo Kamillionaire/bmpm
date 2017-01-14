@@ -1,7 +1,7 @@
 var BMPM;
 (function (BMPM) {
-    angular.module('bmpm', ['ngResource', 'ui.router', 'ngMaterial'])
-        .config(function ($resourceProvider, $stateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
+    angular.module('bmpm', ['ngResource', 'ui.router'])
+        .config(function ($resourceProvider, $stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider
             .state('main', {
             url: '',
@@ -22,7 +22,7 @@ var BMPM;
         })
             .state('main.home', {
             url: '/',
-            template: '<boxer-list></boxer-list>',
+            template: '<h1>Welcome Page</h1>',
             parent: 'main'
         })
             .state('main.login', {
@@ -36,11 +36,6 @@ var BMPM;
         });
         $urlRouterProvider.otherwise('/');
         $locationProvider.html5Mode(true);
-        $mdThemingProvider.theme('default')
-            .primaryPalette('blue')
-            .accentPalette('yellow')
-            .backgroundPalette('cyan')
-            .dark();
     })
         .run(function () { });
 })(BMPM || (BMPM = {}));

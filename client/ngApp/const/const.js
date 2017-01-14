@@ -1,4 +1,4 @@
-angular.module('love-squabble')
+angular.module('bmpm')
     .constant('AUTH_EVENTS', {
     loginSuccess: 'auth-login-success',
     loginFailed: 'auth-login-failed',
@@ -14,7 +14,7 @@ angular.module('love-squabble')
     .constant('USER_ROLES', {
     all: '*',
     admin: 'admin'
-})
-    .constant('STATES', [AL, AK, AZ, AR, CA, CO, CT, DE, FL, GA, HI, ID, IL, IN, IA, KS, KY, LA, ME, MD, MA, MI, MN, MS,
-    MO, MT, NE, NV, NH, NJ, NM, NY, NC, ND, OH, OK, OR, PA, RI, SC, SD, TN, TX, UT, VT, VA, WA, WV, WI,
-    WY]);
+});
+// .constant('STATES',[AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS
+//   MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI
+//   WY])

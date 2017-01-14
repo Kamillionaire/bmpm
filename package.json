@@ -2,9 +2,13 @@
   "name": "bmpm",
   "version": "1.0.0",
   "description": "",
-  "main": "./bin/www.js",
+  "main": "./server/bin/www.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "sass": "node-sass -r ./client/styles/ -o ./client/styles/",
+    "sass:w": "node-sass -w -r ./client/styles/ -o ./client/styles/",
+    "start": "concurrently \"node server/bin/www\" \"npm run tsc:w\" \"npm run sass:w\""
   },
   "author": "",
   "license": "ISC",
@@ -39,5 +43,9 @@
     "passport-facebook": "^2.1.1",
     "passport-local": "^1.0.0",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "concurrently": "^3.1.0",
+    "node-sass": "^4.3.0"
   }
 }

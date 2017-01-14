@@ -3,7 +3,7 @@ var BMPM;
     var Components;
     (function (Components) {
         var name = 'registration';
-        var template = '/ngApp/components/registration/registration.html';
+        var template = '/client/ngApp/components/registration/registration.html';
         var Registration = (function () {
             function Registration(UserService, $state) {
                 this.UserService = UserService;
@@ -16,6 +16,14 @@ var BMPM;
                     'ISTJ(-A/-T) ISFJ(-A/-T) ESTJ(-A/-T) ESFJ(-A/-T) ' +
                     'ISTP(-A/-T) ISFP(-A/-T) ESTP(-A/-T) ESFP(-A/-T)').split(' ');
             }
+            //TODO states and personality types can be constants.
+            // logout() {
+            //   this.UserService.logout().then(() => {
+            //     this.$state.go('registration.home', null, {reload: true, notify:true});
+            //   }).catch(() => {
+            //     throw new Error('Unsuccessful logout');
+            //   });
+            // }
             Registration.prototype.register = function (user) {
                 this.UserService.register(user).then(function (result) {
                     alert('Successful login!');

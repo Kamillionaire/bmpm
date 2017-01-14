@@ -4,6 +4,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var Users_1 = require("../models/Users");
 passport.serializeUser(function (user, done) {
+    // console.log('serializeUser', user);
     done(null, user);
 });
 passport.deserializeUser(function (obj, done) {

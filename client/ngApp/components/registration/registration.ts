@@ -1,6 +1,6 @@
 namespace BMPM.Components{
   const name='registration';
-  const template='/ngApp/components/registration/registration.html';
+  const template='/client/ngApp/components/registration/registration.html';
   export class Registration {
   states= ('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
     'MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI ' +
