@@ -28,5 +28,4 @@ var methods = {
     setSession: setSession,
     destroySession: destroySession
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = methods;
+module.exports = router;

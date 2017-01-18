@@ -1,10 +1,14 @@
 import * as express from 'express';
-import {PType, IPType} from './../server/models/PTypes';
+import * as mongoose from 'mongoose';
+import * as passport from 'passport';
+import * as jwt from 'jsonwebtoken';
+import Users from '../models/Users';
+import PType from '../models/PTypes';
 
 let router = express.Router();
 //get all
 //TODO paginated
-router.get('/Ptypes', (req, res, next) => {
+router.get('/ptypes', (req, res, next) => {
     PType.find({}, {}, (e, data) => {
         if (e) return next({ message: 'Could Not Find Personality Type', Error: e });
         res.json(data);

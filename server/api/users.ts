@@ -3,7 +3,8 @@ import * as mongoose from 'mongoose';
 import * as passport from 'passport';
 import * as jwt from 'jsonwebtoken';
 import Users from '../models/Users';
-import methods from './methods';
+import PType from '../models/PTypes';
+// import Methods from '../models/Methods';
 
 let router = express.Router();
 
@@ -42,7 +43,7 @@ router.post('/login/local', function(req, res, next) {
 
   passport.authenticate('local', function(err, user, info) {
     if(err) return next(err);
-    if(user) return methods.setSession(req, res, next, user);
+    // if(user) return methods.setSession(req, res, next, user);
 
     return res.status(400).json(info);
   })(req, res, next);

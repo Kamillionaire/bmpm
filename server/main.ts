@@ -7,8 +7,9 @@ import * as passport from 'passport';
 import * as session from 'express-session';
 const MongoStore = require('connect-mongo')(session)
 import Users from './models/Users';
+import {PTypesSeeds} from './models/seeds/pTypes';
 //express routes
-import routes from './../server/routes/index';
+import * as routes from './routes/index';
 
 //init express and assign it to app var
 //INITIATE THE APP
@@ -35,8 +36,10 @@ mongoose.connection.on('connected', () => {
   console.log(__dirname)
   //if dev seed the deb
   if(dev) {
-    mongoose.connection.db.dropDatabase();
-    require('./models/seeds/index');
+    // (only drop data and seed if there are no data types)
+    // mongoose.connection.db.dropDatabase();
+    //   let s=new PTypesSeeds();
+    //   s.createSeeds();
   }
 
   Users.findOne({username: 'admin'}, (err, user) => {
@@ -47,7 +50,7 @@ mongoose.connection.on('connected', () => {
       admin.email = process.env.ADMIN_EMAIL;
       admin.username = process.env.ADMIN_USERNAME;
       admin.state= 'state';
-      admin.pType= 'pType';
+      // admin.pType= 'pType';
       admin.setPassword(process.env.ADMIN_PASSWORD);
       admin.roles = ['user', 'admin'];
       admin.save();
@@ -66,10 +69,20 @@ app.set('view engine', 'ejs');
 //config req.session your session
 app.set('trust proxy', 1); // trust first proxy
 
+//config bodyParser
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(passport.session());
+
 //static routing
 app.use('/bower_components', express.static(path.join(__dirname,'../bower_components')));
 app.use('/node_modules', express.static(path.join(__dirname, '../node_modules')));
 app.use('/client', express.static(path.join(__dirname,'../client')));
+
+// bootstrap api
+app.use('/api', require('./api/users'));
+app.use('/api', require('./api/pTypes'));
 
 //a server route
 app.use('/', require('./routes/index'));
@@ -96,13 +109,6 @@ app.use(session({
   resave: false,
   saveUninitialized: false //if nothing has changed.. do not restore cookie
 }));
-//config bodyParser
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-app.use(passport.initialize());
-app.use(passport.session());
-//apis
-app.use('/api', require('./api/users'));
 
 // redirect 404 to home for the sake of AngularJS client-side routes
 app.get('/*', function(req, res, next) {

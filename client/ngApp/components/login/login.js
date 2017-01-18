@@ -3,7 +3,7 @@ var BMPM;
     var Components;
     (function (Components) {
         var name = 'login';
-        var template = '/ngApp/components/login/login.html';
+        var template = '/client/ngApp/components/login/login.html';
         var Login = (function () {
             function Login(UserService, $state) {
                 this.UserService = UserService;

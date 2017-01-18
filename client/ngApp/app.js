@@ -17,8 +17,7 @@ var BMPM;
                         });
                     }
                 ]
-            },
-            component: 'mainApp'
+            }
         })
             .state('main.home', {
             url: '/',
@@ -26,11 +25,11 @@ var BMPM;
             parent: 'main'
         })
             .state('main.login', {
-            url: '/',
+            url: '/login',
             template: '<login></login>',
             parent: 'main'
         }).state('main.register', {
-            url: '/',
+            url: '/registration',
             template: '<registration></registration>',
             parent: 'main'
         });

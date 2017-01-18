@@ -3,6 +3,8 @@ import * as mongoose from 'mongoose';
 import * as passport from 'passport';
 import * as jwt from 'jsonwebtoken';
 import Users from '../models/Users';
+import PType from '../models/PTypes';
+
 let router = express.Router();
 
 //Express has Express.Request but the interface isn't very good...  requires overrides
@@ -33,4 +35,4 @@ const methods = {
   destroySession: destroySession
 }
 
-export default methods;
+export = router;

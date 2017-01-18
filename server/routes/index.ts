@@ -5,4 +5,4 @@ router.get('/', (req, res, next) => {
   res.render('index');
 });
 
-export= router;
+export = router;

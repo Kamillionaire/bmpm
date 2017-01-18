@@ -2,7 +2,7 @@
 var express = require("express");
 var passport = require("passport");
 var Users_1 = require("../models/Users");
-var methods_1 = require("./methods");
+// import Methods from '../models/Methods';
 var router = express.Router();
 router.get('/users/:id', function (req, res, next) {
     Users_1.default.findOne(req.params._id).select('-passwordHash -salt').then(function (user) {
@@ -23,7 +23,7 @@ router.post('/Register', function (req, res, next) {
     user.username = req.body.username;
     user.email = req.body.email;
     user.state = req.body.state;
-    user.personality = req.body.personality;
+    user.pType = req.body.pType;
     user.setPassword(req.body.password);
     user.save(function (err, user) {
         if (err)
@@ -38,8 +38,7 @@ router.post('/login/local', function (req, res, next) {
     passport.authenticate('local', function (err, user, info) {
         if (err)
             return next(err);
-        if (user)
-            return methods_1.default.setSession(req, res, next, user);
+        // if(user) return methods.setSession(req, res, next, user);
         return res.status(400).json(info);
     })(req, res, next);
 });

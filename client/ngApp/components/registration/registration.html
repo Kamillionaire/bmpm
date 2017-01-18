@@ -1,32 +1,32 @@
 <h1>Register</h1>
 <form ng-submit="vm.register(vm.user)">
-  
-<md-input-container><label>User Name</label>
-  <input type="text" ng-model="vm.user.username"></md-input-container>
+
+<input><label>User Name</label>
+  <input type="text" ng-model="vm.user.username"></input>
   <hr/>
-  <md-input-container><label>Email</label>
-  <input type="email" ng-model="vm.user.email"></md-input-container>
+  <input><label>Email</label>
+  <input type="email" ng-model="vm.user.email"></input>
   <hr/>
-  <md-input-container><label>Password</label>
-  <input type="password" ng-model="vm.user.password"></md-input-container>
+  <input><label>Password</label>
+  <input type="password" ng-model="vm.user.password"></input>
   <hr/>
-  <md-input-container class="md-block" flex-gt-sm>
+  <input class="md-block" flex-gt-sm>
             <label>State</label>
-            <md-select ng-model="vm.user.state">
-              <md-option ng-repeat="state in vm.states" value="{{state}}">
+            <input ng-model="vm.user.state">
+              <input ng-repeat="state in vm.states" value="{{state}}">
                 {{state}}
-              </md-option>
-            </md-select>
-          </md-input-container>
+              </input>
+            </input>
+          </input>
   <hr/>
-  <md-input-container class="md-block" flex-gt-sm>
+  <input class="md-block" flex-gt-sm>
             <label>Select pType</label>
-            <md-select ng-model="vm.user.pType">
-              <md-option ng-repeat="pType in vm.pTypes" value="{{pType}}">
+            <input ng-model="vm.user.pType">
+              <input ng-repeat="pType in vm.pTypes" value="{{pType}}">
                 {{pType}}
-              </md-option>
-            </md-select>
-          </md-input-container>
+              </input>
+            </input>
+          </input>
   <hr/>
 
   <md-button type="submit">Submit</md-button>

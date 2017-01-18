@@ -20,8 +20,8 @@ namespace BMPM {
                   return { username: false };
                 });
               }]
-          },
-          component:'mainApp'
+          }
+          // component:'mainApp'
         })
         .state('main.home', {
           url: '/',
@@ -29,11 +29,11 @@ namespace BMPM {
           parent: 'main'
         })
         .state('main.login', {
-          url: '/',
+          url: '/login',
           template: '<login></login>',
           parent: 'main'
         }).state('main.register', {
-          url: '/',
+          url: '/registration',
           template: '<registration></registration>',
           parent: 'main'
         })

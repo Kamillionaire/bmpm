@@ -1,6 +1,6 @@
 namespace BMPM.Components{
   const name='login';
-  const template='/ngApp/components/login/login.html';
+  const template='/client/ngApp/components/login/login.html';
   export class Login {
     public user;
     constructor(
