@@ -25,7 +25,7 @@ namespace BMPM {
         })
         .state('main.home', {
           url: '/',
-          template: '<h1>Welcome Page</h1>',
+          template: '<home></home>',
           parent: 'main'
         })
         .state('main.login', {
