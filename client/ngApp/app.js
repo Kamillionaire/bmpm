@@ -1,6 +1,10 @@
+/// <reference types="angular" />
+/// <reference types="angular-resource" />
+/// <reference types="angular-ui-router" />
+/// <reference types="ngstorage" />
 var BMPM;
 (function (BMPM) {
-    angular.module('bmpm', ['ngResource', 'ui.router'])
+    angular.module('bmpm', ['ngResource', 'ui.router', 'ngStorage'])
         .config(function ($resourceProvider, $stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider
             .state('main', {

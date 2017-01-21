@@ -50,10 +50,13 @@ mongoose.connection.on('connected', () => {
       admin.email = process.env.ADMIN_EMAIL;
       admin.username = process.env.ADMIN_USERNAME;
       admin.state= 'state';
-      // admin.pType= 'pType';
+      admin.pType= 'pType';
       admin.setPassword(process.env.ADMIN_PASSWORD);
       admin.roles = ['user', 'admin'];
-      admin.save();
+      admin.save((err,u)=>{
+        if (err) console.log(err);
+        console.log(u);
+      });
   });
 });
 

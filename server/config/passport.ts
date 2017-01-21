@@ -5,6 +5,8 @@ let FacebookStrategy = require('passport-facebook').Strategy;
 import Users from '../models/Users';
 import * as jwt from 'jsonwebtoken';
 
+console.log('passport loaded')
+
 passport.serializeUser(function(user, done) {
   // console.log('serializeUser', user);
   done(null, user);
@@ -43,8 +45,13 @@ passport.use(new FacebookStrategy({
   }
 ));
 
-passport.use(new LocalStrategy(function(username: String, password: string, done) {
-  Users.findOne({ username: username }, function(err, user) {
+passport.use(new LocalStrategy(function(username: string, password: string, done) {
+  console.log('passport on')
+  Users.findOne({ username: username }).select('+salt +passwordHash')
+  .exec(function(err, user) {
+    console.log('err',err)
+    console.log('user',user)
+    console.log(password)
     if(err) return done(err);
     if(!user) return done(null, false, { message: 'Incorrect username.' });
     if(!user.validatePassword(password)) return done(null, false, { message: 'Password does not match.' });

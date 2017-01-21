@@ -8,8 +8,9 @@
     "tsc:w": "tsc -w",
     "sass": "node-sass -r ./client/styles/ -o ./client/styles/",
     "sass:w": "node-sass -w -r ./client/styles/ -o ./client/styles/",
-    "start": "concurrently \"node server/bin/www\" \"npm run tsc:w\" \"npm run sass:w\""
+    "start": "tsc && concurrently \"nodemon\" \"npm run sass:w\""
   },
+  "engine": "6.9.4",
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -20,12 +21,14 @@
     "@types/angular-ui-router": "^1.1.36",
     "@types/body-parser": "0.0.33",
     "@types/connect-mongo": "0.0.32",
+    "@types/core-js": "^0.9.35",
     "@types/ejs": "^2.3.33",
     "@types/express": "^4.0.34",
     "@types/express-session": "0.0.32",
     "@types/jsonwebtoken": "^7.2.0",
     "@types/mongodb": "^2.1.36",
     "@types/mongoose": "^4.7.2",
+    "@types/ngstorage": "^0.3.33",
     "@types/passport": "^0.3.1",
     "@types/passport-facebook": "^1.0.29",
     "@types/passport-local": "^1.0.29",

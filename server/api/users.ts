@@ -37,16 +37,25 @@ router.post('/Register', function(req, res, next) {
 });
 
 router.post('/login/local', function(req, res, next) {
+  console.log('api on')
+  console.log(req.body)
   if(!req.body.username && !req.body.password){
     return res.status(400).json({message: "Please fill out every field"});
   }
 
   passport.authenticate('local', function(err, user, info) {
+    console.log('authentication pass')
+    console.log(err)
     if(err) return next(err);
-    // if(user) return methods.setSession(req, res, next, user);
-
-    return res.status(400).json(info);
-  })(req, res, next);
+    console.log(user)
+    return req.logIn(user, (err) => { console.log (err)
+      if (err) res.status(500).json({message: 'login failed'});
+      return req.session.save(function (err){
+        if (err) res.status(500).json({message: 'session failed'});
+        return res.json({message:'session successful'});
+      });
+    });
+  });
 });
 
 router.get('/logout/local',(req, res, next)=>{
