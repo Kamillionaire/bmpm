@@ -1,52 +1,62 @@
 <h1>Register</h1>
-<form class="form-horizontal">
-    <fieldset>
-        <legend>Legend</legend>
+<div class="well">
 
-        <div class="form-group">
-            <label for="inputUsername" class="col-lg-2 control-label">User Name</label>
-            <div class="col-lg-10">
-                <input type="text" ng-model="vm.user.username" class="form-control" id="inputUsername" placeholder="Username">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-            <div class="col-lg-10">
-                <input type="email" ng-model="vm.user.email" class="form-control" id="inputEmail" placeholder="Email">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-            <div class="col-lg-10">
-                <input type="password" ng-model="vm.user.password" class="form-control" id="inputPassword" placeholder="Password">
-                <div class="checkbox">
-                    <label>
-            <input type="checkbox"> Checkbox
-          </label>
+
+    <form ng-submit="vm.register()" class="form-horizontal">
+
+        <fieldset>
+            <legend>Legend</legend>
+
+
+            <div class="form-group">
+                <label for="inputUsername" class="col-lg-2 control-label">User Name</label>
+                <div class="col-lg-10">
+                    <input type="text" ng-model="vm.user.username" class="form-control" id="inputUsername" placeholder="Username">
                 </div>
             </div>
-        </div>
+            <div class="form-group">
+                <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+                <div class="col-lg-10">
+                    <input type="email" ng-model="vm.user.email" class="form-control" id="inputEmail" placeholder="Email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                <div class="col-lg-10">
+                    <input type="password" ng-model="vm.user.password" class="form-control" id="inputPassword" placeholder="Password">
+                </div>
+            </div>
 
-        <div class="form-group">
-            <label for="selectState" class="col-lg-2 control-label">Selects</label>
-            <div class="col-lg-10">
-                <select class="form-control" id="select">
-          <option ng-repeat="state in vm.states" value="{{state}}" class="form-control">{{state}}</option>
-        </select>
+        <div class="well">
+            <div class="btn-group" uib-dropdown>
+                <button id="split-button" type="button" class="btn btn-warning">{{vm.user.state ||'State'}}</button>
+                <button type="button" class="btn btn-warning" uib-dropdown-toggle>
+                    <span class="caret"></span>
+                    <span class="sr-only">Split button!</span>
+                </button>
+                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                    <li ng-click="vm.user.state = state" ng-repeat="state in vm.states" role="menuitem">{{state}}</li>
+                </ul>
+            </div>
+
+            <div class="btn-group" uib-dropdown>
+                <button id="split-button" type="button" class="btn btn-warning">{{vm.user.pType ||'P-Type'}}</button>
+                <button type="button" class="btn btn-warning" uib-dropdown-toggle>
+                    <span class="caret"></span>
+                    <span class="sr-only">Split button!</span>
+                </button>
+                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                    <li ng-click="vm.user.pType = pType" ng-repeat="pType in vm.pTypes" role="menuitem">{{pType}}</li>
+                </ul>
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="selectPType" class="col-lg-2 control-label">Selects</label>
-            <div class="col-lg-10">
-                <select class="form-control" id="select">
-          <option ng-repeat="pType in vm.pTypes" value="{{pType}}" class="form-control">{{pType}}</option>
-        </select>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <button class="btn btn-lg btn-primary" type="submit">Submit</button>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <button class="btn btn-primary" type="submit">Submit</button>
-        </div>
-    </fieldset>
-</form>
+        </fieldset>
+    </form>
+</div>

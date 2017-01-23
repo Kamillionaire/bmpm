@@ -13,12 +13,10 @@ router.get('/users/:id', function (req, res, next) {
 });
 //CONSTANTLY RETURNS 200 because we are always authorized to check.
 router.get('/currentuser', function (req, res, next) {
-    console.log(req.user);
-    if (!req.user)
-        return res.json({});
     return res.json(req.user);
 });
 router.post('/Register', function (req, res, next) {
+    console.log('try harder');
     var user = new Users_1.default();
     user.username = req.body.username;
     user.email = req.body.email;
@@ -32,25 +30,18 @@ router.post('/Register', function (req, res, next) {
     });
 });
 router.post('/login/local', function (req, res, next) {
-    console.log('api on');
-    console.log(req.body);
     if (!req.body.username && !req.body.password) {
         return res.status(400).json({ message: "Please fill out every field" });
     }
     passport.authenticate('local', { session: true }, function (err, user, info) {
-        console.log('authentication pass');
-        console.log(err);
         if (err)
             return next(err);
-        console.log(user);
         req.logIn(user, function (err) {
-            console.log(err);
             if (err)
-                res.status(500).json({ message: 'login failed' });
-            console.log(req.session);
-            return req.session.save(function (err) {
+                return res.status(500).json({ message: 'login failed' });
+            req.session.save(function (err) {
                 if (err)
-                    res.status(500).json({ message: 'session failed' });
+                    return res.status(500).json({ message: 'session failed' });
                 return res.json({ message: 'session successful' });
             });
         });

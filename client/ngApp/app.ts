@@ -4,7 +4,7 @@
 /// <reference types="ngstorage" />
 
 namespace BMPM {
-  angular.module('bmpm', ['ngResource', 'ui.router','ngStorage'])
+  angular.module('bmpm', ['ngResource', 'ui.router','ngStorage', 'ui.bootstrap'])
     .config((
       $resourceProvider: ng.resource.IResourceServiceProvider,
       $stateProvider: ng.ui.IStateProvider,

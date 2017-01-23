@@ -10,11 +10,11 @@ namespace BMPM.Components{
     ) {
     }
     public registration(user) {
-      this.UserService.login(user).then((res) => {
+      this.UserService.register(user).then((res) => {
       this.Session.create(Registration)
         this.$state.go('main.home', null, {reload: true, notify:true});
       }).catch((err) => {
-        alert('Bunk login, please try again.');
+        alert('Bunk registration, please try again.');
       });
     }
     public login(user) {

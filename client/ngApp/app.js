@@ -1,6 +1,10 @@
+/// <reference types="angular" />
+/// <reference types="angular-resource" />
+/// <reference types="angular-ui-router" />
+/// <reference types="ngstorage" />
 var BMPM;
 (function (BMPM) {
-    angular.module('bmpm', ['ngResource', 'ui.router', 'ngStorage'])
+    angular.module('bmpm', ['ngResource', 'ui.router', 'ngStorage', 'ui.bootstrap'])
         .config(function ($resourceProvider, $stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider
             .state('main', {
@@ -39,6 +43,7 @@ var BMPM;
     })
         .factory('_', ['$window',
         function ($window) {
+            // place lodash include before angular
             return $window._;
         }
     ])
@@ -64,6 +69,7 @@ var BMPM;
                 if (authorizedRoles && !Session.isAuthorized(authorizedRoles)) {
                     event.preventDefault();
                     if (Session.isAuthenticated()) {
+                        //TODO dialog
                         $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
                         $state.go('home');
                     }

@@ -1,7 +1,7 @@
 
 <ul class="nav nav-pills">
   <li><a ui-sref="main.home">Home</a></li>
-  <li><a ui-sref="main.login">Login</a></li>
-  <li><a ui-sref="main.register">Register</a></li>
+  <li><a ui-sref="main.login" ng-if = "!vm.isAuthenticated">Login</a></li>
+  <li><a ui-sref="main.register" ng-if = "!vm.isAuthenticated">Register</a></li>
   <li><button class = "btn btn-warning" ng-if = "vm.isAuthenticated" ng-click = "vm.logout()">Logout</button></li>
 </ul>

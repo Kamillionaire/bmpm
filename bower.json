@@ -20,6 +20,7 @@
     "angular-aria": "^1.6.1",
     "ngstorage": "^0.3.11",
     "bootstrap-sass": "^3.3.7",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "angular-bootstrap": "^2.4.0"
   }
 }

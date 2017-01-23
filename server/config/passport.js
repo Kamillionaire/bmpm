@@ -3,9 +3,8 @@ var passport = require("passport");
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var Users_1 = require("../models/Users");
-console.log('passport loaded');
 passport.serializeUser(function (user, done) {
-    // console.log('serializeUser', user);
+    console.log('serializeUser', user);
     done(null, user);
 });
 passport.deserializeUser(function (obj, done) {
@@ -40,12 +39,8 @@ passport.use(new FacebookStrategy({
     });
 }));
 passport.use(new LocalStrategy(function (username, password, done) {
-    console.log('passport on');
     Users_1.default.findOne({ username: username }).select('+salt +passwordHash')
         .exec(function (err, user) {
-        console.log('err', err);
-        console.log('user', user);
-        console.log(password);
         if (err)
             return done(err);
         if (!user)

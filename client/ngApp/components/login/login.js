@@ -12,11 +12,11 @@ var BMPM;
             }
             Login.prototype.registration = function (user) {
                 var _this = this;
-                this.UserService.login(user).then(function (res) {
+                this.UserService.register(user).then(function (res) {
                     _this.Session.create(Components.Registration);
                     _this.$state.go('main.home', null, { reload: true, notify: true });
                 }).catch(function (err) {
-                    alert('Bunk login, please try again.');
+                    alert('Bunk registration, please try again.');
                 });
             };
             Login.prototype.login = function (user) {

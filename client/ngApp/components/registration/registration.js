@@ -5,27 +5,15 @@ var BMPM;
         var name = 'registration';
         var template = '/client/ngApp/components/registration/registration.html';
         var Registration = (function () {
-            function Registration(UserService, $state) {
+            function Registration(UserService, $state, STATES, PTYPES) {
                 this.UserService = UserService;
                 this.$state = $state;
-                this.states = ('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
-                    'MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI ' +
-                    'WY').split(' ');
-                this.pTypes = ('INTJ(-A/-T) INTP(-A/-T) ENTJ(-A/-T) ENTP(-A/-T) ' +
-                    'INFJ(-A/-T) INFP(-A/-T) ENFJ(-A/-T) ENFP(-A/-T) ' +
-                    'ISTJ(-A/-T) ISFJ(-A/-T) ESTJ(-A/-T) ESFJ(-A/-T) ' +
-                    'ISTP(-A/-T) ISFP(-A/-T) ESTP(-A/-T) ESFP(-A/-T)').split(' ');
+                this.pTypes = PTYPES.all;
+                console.log(PTYPES);
+                this.states = STATES.all;
             }
-            //TODO states and pType types can be constants.
-            // logout() {
-            //   this.UserService.logout().then(() => {
-            //     this.$state.go('registration.home', null, {reload: true, notify:true});
-            //   }).catch(() => {
-            //     throw new Error('Unsuccessful logout');
-            //   });
-            // }
-            Registration.prototype.register = function (user) {
-                this.UserService.register(user).then(function (result) {
+            Registration.prototype.register = function () {
+                this.UserService.register(this.user).then(function (result) {
                     alert('Successful login!');
                 }).catch(function (e) {
                     throw new Error(e);
