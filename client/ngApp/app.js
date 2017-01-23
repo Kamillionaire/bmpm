@@ -1,7 +1,3 @@
-/// <reference types="angular" />
-/// <reference types="angular-resource" />
-/// <reference types="angular-ui-router" />
-/// <reference types="ngstorage" />
 var BMPM;
 (function (BMPM) {
     angular.module('bmpm', ['ngResource', 'ui.router', 'ngStorage'])
@@ -32,7 +28,8 @@ var BMPM;
             url: '/login',
             template: '<login></login>',
             parent: 'main'
-        }).state('main.register', {
+        })
+            .state('main.register', {
             url: '/registration',
             template: '<registration></registration>',
             parent: 'main'
@@ -40,5 +37,42 @@ var BMPM;
         $urlRouterProvider.otherwise('/');
         $locationProvider.html5Mode(true);
     })
-        .run(function () { });
+        .factory('_', ['$window',
+        function ($window) {
+            return $window._;
+        }
+    ])
+        .run([
+        '$rootScope',
+        'UserService',
+        '$sessionStorage',
+        'Session',
+        '$state',
+        '_',
+        'AUTH_EVENTS',
+        function ($rootScope, UserService, $sessionStorage, Session, $state, _, AUTH_EVENTS) {
+            $rootScope.$on('$stateChangeStart', function (event, next) {
+                UserService.getCurrentUser().then(function (user) {
+                    $sessionStorage.user = user;
+                    Session.user = Session.getUser();
+                }).catch(function (user) {
+                    $sessionStorage.user = user;
+                    Session.user = Session.getUser();
+                });
+                var authorizedRoles = !_.isUndefined(next.data, 'authorizedRoles')
+                    ? next.data.authorizedRoles : false;
+                if (authorizedRoles && !Session.isAuthorized(authorizedRoles)) {
+                    event.preventDefault();
+                    if (Session.isAuthenticated()) {
+                        $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+                        $state.go('home');
+                    }
+                    else {
+                        $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+                        $state.go('home');
+                    }
+                }
+            });
+        }
+    ]);
 })(BMPM || (BMPM = {}));

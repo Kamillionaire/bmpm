@@ -37,7 +37,8 @@ namespace BMPM {
           url: '/login',
           template: '<login></login>',
           parent: 'main'
-        }).state('main.register', {
+        })
+        .state('main.register', {
           url: '/registration',
           template: '<registration></registration>',
           parent: 'main'
@@ -45,6 +46,55 @@ namespace BMPM {
 
       $urlRouterProvider.otherwise('/');
       $locationProvider.html5Mode(true);
+
     })
-    .run(() => {});
+    .factory('_', ['$window',
+      function($window) {
+        // place lodash include before angular
+        return $window._;
+      }
+    ])
+    .run(
+      [
+        '$rootScope',
+        'UserService',
+        '$sessionStorage',
+        'Session',
+        '$state',
+        '_',
+        'AUTH_EVENTS',
+        (
+          $rootScope,
+          UserService,
+          $sessionStorage,
+          Session,
+          $state: ng.ui.IStateService,
+          _,
+          AUTH_EVENTS
+        ) => {
+          $rootScope.$on('$stateChangeStart', (event, next) => {
+            UserService.getCurrentUser().then((user) => {
+              $sessionStorage.user = user;
+              Session.user = Session.getUser();
+            }).catch((user) => {
+              $sessionStorage.user = user;
+              Session.user = Session.getUser();
+            });
+            let authorizedRoles = !_.isUndefined(next.data, 'authorizedRoles')
+              ? next.data.authorizedRoles : false;
+            if (authorizedRoles && !Session.isAuthorized(authorizedRoles)) {
+              event.preventDefault();
+              if(Session.isAuthenticated()){
+                //TODO dialog
+                $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+                $state.go('home');
+              } else {
+                $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+                $state.go('home');
+              }
+            }
+          });
+        }
+      ]
+    );
 }

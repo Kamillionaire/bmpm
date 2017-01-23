@@ -2,6 +2,7 @@
 var express = require("express");
 var passport = require("passport");
 var Users_1 = require("../models/Users");
+// import Methods from '../models/Methods';
 var router = express.Router();
 router.get('/users/:id', function (req, res, next) {
     Users_1.default.findOne(req.params._id).select('-passwordHash -salt').then(function (user) {
@@ -10,6 +11,7 @@ router.get('/users/:id', function (req, res, next) {
         return res.status(401).json({ err: 'User not found.' });
     });
 });
+//CONSTANTLY RETURNS 200 because we are always authorized to check.
 router.get('/currentuser', function (req, res, next) {
     console.log(req.user);
     if (!req.user)
