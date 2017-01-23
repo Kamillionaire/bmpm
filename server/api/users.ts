@@ -43,19 +43,21 @@ router.post('/login/local', function(req, res, next) {
     return res.status(400).json({message: "Please fill out every field"});
   }
 
-  passport.authenticate('local', function(err, user, info) {
+  passport.authenticate('local',{session:true}, function(err, user, info) {
     console.log('authentication pass')
     console.log(err)
     if(err) return next(err);
     console.log(user)
-    return req.logIn(user, (err) => { console.log (err)
+    req.logIn(user, (err) => { 
+      console.log (err)
       if (err) res.status(500).json({message: 'login failed'});
+      console.log(req.session)
       return req.session.save(function (err){
         if (err) res.status(500).json({message: 'session failed'});
         return res.json({message:'session successful'});
       });
     });
-  });
+  })(req, res, next);
 });
 
 router.get('/logout/local',(req, res, next)=>{

@@ -70,25 +70,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 //config req.session your session
-app.set('trust proxy', 1); // trust first proxy
-
-//config bodyParser
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-app.use(passport.initialize());
-app.use(passport.session());
-
-//static routing
-app.use('/bower_components', express.static(path.join(__dirname,'../bower_components')));
-app.use('/node_modules', express.static(path.join(__dirname, '../node_modules')));
-app.use('/client', express.static(path.join(__dirname,'../client')));
-
-// bootstrap api
-app.use('/api', require('./api/users'));
-app.use('/api', require('./api/pTypes'));
-
-//a server route
-app.use('/', require('./routes/index'));
+app.enable('trust proxy'); // trust first proxy
 
 let sess = {
   maxAge: 172800000, // 2 days
@@ -112,6 +94,25 @@ app.use(session({
   resave: false,
   saveUninitialized: false //if nothing has changed.. do not restore cookie
 }));
+
+//config bodyParser
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(passport.session());
+
+//static routing
+app.use('/bower_components', express.static(path.join(__dirname,'../bower_components')));
+app.use('/node_modules', express.static(path.join(__dirname, '../node_modules')));
+app.use('/client', express.static(path.join(__dirname,'../client')));
+
+// bootstrap api
+app.use('/api', require('./api/users'));
+app.use('/api', require('./api/pTypes'));
+
+//a server route
+app.use('/', require('./routes/index'));
+
 
 // redirect 404 to home for the sake of AngularJS client-side routes
 app.get('/*', function(req, res, next) {
