@@ -1,13 +1,14 @@
 "use strict";
-var mongoose = require("mongoose");
-var crypto = require("crypto");
-var jwt = require("jsonwebtoken");
-var UserSchema = new mongoose.Schema({
+const mongoose = require("mongoose");
+const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
+const Profile_1 = require("./../models/Profile");
+let UserSchema = new mongoose.Schema({
     username: { type: String, lowercase: true, unique: true, required: true },
     email: { type: String, required: true, unique: true, lowercase: true },
-    passwordHash: { type: String, select: false },
     state: { type: String, required: true },
-    pType: { type: String, required: true },
+    pType: { type: String, ref: 'PType', required: true },
+    passwordHash: { type: String, select: false },
     salt: { type: String, select: false },
     facebookId: String,
     facebook: {
@@ -17,12 +18,29 @@ var UserSchema = new mongoose.Schema({
     },
     roles: { type: Array, default: ['user'] }
 });
+UserSchema.pre('save', true, function (next, done) {
+    if (this.isNew) {
+        console.log('isNew');
+        Profile_1.default.create().then(() => {
+            next();
+            done();
+        }).catch((e) => {
+            var err = new Error(e);
+            next(err);
+            done();
+        });
+    }
+    else {
+        next();
+        done();
+    }
+});
 UserSchema.method('setPassword', function (password) {
     this.salt = crypto.randomBytes(16).toString('hex');
     this.passwordHash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
 });
 UserSchema.method('validatePassword', function (password) {
-    var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
+    let hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
     return (hash === this.passwordHash);
 });
 UserSchema.method('generateJWT', function () {

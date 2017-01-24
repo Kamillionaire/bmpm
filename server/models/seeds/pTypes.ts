@@ -1,4 +1,4 @@
-import pTypes from './../pTypes';
+import {PType} from './../PTypes';
 namespace main.seeds {
   export class PTypesSeeds {
     public seeds;
@@ -30,9 +30,9 @@ namespace main.seeds {
 
     createSeeds() {
       this.seeds.forEach((v) => {
-        pTypes.create(v, (e) => {
+        PType.create(v, (e) => {
           if(e) throw new Error(e);
-          console.log(`Create ${v.name} from Squabbles`);
+          
         });
       });
     }

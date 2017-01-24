@@ -15,4 +15,4 @@ let PTypeSchema = new mongoose.Schema({
 });
 
 
-export default mongoose.model<IPType>("PType", PTypeSchema);
+export const PType = mongoose.model<IPType>("PType", PTypeSchema);

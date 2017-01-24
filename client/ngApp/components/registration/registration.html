@@ -46,7 +46,7 @@
                     <span class="sr-only">Split button!</span>
                 </button>
                 <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
-                    <li ng-click="vm.user.pType = pType" ng-repeat="pType in vm.pTypes" role="menuitem">{{pType}}</li>
+                    <li ng-click="vm.user.pType = pType._id" ng-repeat="pType in vm.pTypes" role="menuitem">{{pType.type}}</li>
                 </ul>
             </div>
         </div>

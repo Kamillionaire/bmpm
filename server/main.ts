@@ -7,7 +7,7 @@ import * as passport from 'passport';
 import * as session from 'express-session';
 const MongoStore = require('connect-mongo')(session)
 import Users from './models/Users';
-import {PTypesSeeds} from './models/seeds/pTypes';
+// import {PTypesSeeds} from './models/seeds/pTypes';
 //express routes
 import * as routes from './routes/index';
 
@@ -34,7 +34,9 @@ mongoose.connect(process.env.MONGO_URI);
 mongoose.connection.on('connected', () => {
   console.log('mongoose connected');
   console.log(__dirname)
-  //if dev seed the deb
+
+  // TODO
+  //if dev PTypes do not exist, run this
   if(dev) {
     // (only drop data and seed if there are no data types)
     // mongoose.connection.db.dropDatabase();
@@ -46,11 +48,12 @@ mongoose.connection.on('connected', () => {
     if(err) return;
     if(user) return;
     if(!user)
+    // var _p = mongoose.Types.ObjectId();
       var admin = new Users();
       admin.email = process.env.ADMIN_EMAIL;
       admin.username = process.env.ADMIN_USERNAME;
-      admin.state= 'state';
-      admin.pType= 'pType';
+      admin.pType = 'p';
+      admin.state = 'WA';
       admin.setPassword(process.env.ADMIN_PASSWORD);
       admin.roles = ['user', 'admin'];
       admin.save((err,u)=>{
@@ -61,9 +64,9 @@ mongoose.connection.on('connected', () => {
 });
 
 //optional
-mongoose.connection.on('error', (e) => {
-  throw new Error(e);
-});
+// mongoose.connection.on('error', (e) => {
+//   throw new Error(e);
+// });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

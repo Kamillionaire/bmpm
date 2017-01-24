@@ -2,7 +2,6 @@ namespace BMPM.Components {
     const name = 'registration';
     const template = '/client/ngApp/components/registration/registration.html';
     export class Registration {
-
         public user;
         public pTypes;
         public states;
@@ -10,10 +9,13 @@ namespace BMPM.Components {
         constructor(
             private UserService: BMPM.Services.UserService,
             private $state: ng.ui.IStateService,
-            STATES, PTYPES
+            STATES, $http:ng.IHttpService,
         ) {
-          this.pTypes = PTYPES.all;
-        console.log(PTYPES)
+            $http.get('/api/pTypes').then((res)=>{
+              this.pTypes = res.data;
+            }).catch ((e)=>{
+              throw new Error (e)
+            })
           this.states = STATES.all;
          }
 

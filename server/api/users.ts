@@ -3,7 +3,7 @@ import * as mongoose from 'mongoose';
 import * as passport from 'passport';
 import * as jwt from 'jsonwebtoken';
 import Users from '../models/Users';
-import PType from '../models/PTypes';
+import {PType} from '../models/PTypes';
 // import Methods from '../models/Methods';
 
 let router = express.Router();

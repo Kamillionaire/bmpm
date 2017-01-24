@@ -5,11 +5,15 @@ var BMPM;
         var name = 'registration';
         var template = '/client/ngApp/components/registration/registration.html';
         var Registration = (function () {
-            function Registration(UserService, $state, STATES, PTYPES) {
+            function Registration(UserService, $state, STATES, $http) {
+                var _this = this;
                 this.UserService = UserService;
                 this.$state = $state;
-                this.pTypes = PTYPES.all;
-                console.log(PTYPES);
+                $http.get('/api/pTypes').then(function (res) {
+                    _this.pTypes = res.data;
+                }).catch(function (e) {
+                    throw new Error(e);
+                });
                 this.states = STATES.all;
             }
             Registration.prototype.register = function () {

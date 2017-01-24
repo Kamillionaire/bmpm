@@ -1,7 +1,8 @@
 import * as mongoose from 'mongoose';
 import * as crypto from 'crypto';
 import * as jwt from 'jsonwebtoken';
-
+import {PType, IPType} from './../models/PTypes';
+import Profile from './../models/Profile';
 export interface IFacebook {
   token: string,
   name: string,
@@ -26,9 +27,9 @@ export interface IUser extends mongoose.Document {
 let UserSchema = new mongoose.Schema({
   username: { type: String, lowercase: true, unique: true, required: true},
   email: { type: String, required:true, unique: true, lowercase: true },
+  state: { type: String, required: true},
+  pType: { type: String, ref: 'PType', required: true},
   passwordHash: {type: String, select: false},
-  state: {type: String, required: true},
-  pType: {type: String, required: true},
   salt: {type: String, select: false},
   facebookId: String,
   facebook: {
@@ -37,6 +38,24 @@ let UserSchema = new mongoose.Schema({
     email: String
   },
   roles: {type: Array, default: ['user']}
+});
+
+UserSchema.pre('save', true, function(next, done) {
+    if (this.isNew) {
+      console.log('isNew')
+        Profile.create().then(() => {
+          next();
+            done();
+
+        }).catch((e) => {
+            var err = new Error(e);
+            next(err);
+            done();
+        })
+    } else {
+      next();
+      done();
+    }
 });
 
 UserSchema.method('setPassword', function(password) {
@@ -56,5 +75,6 @@ UserSchema.method('generateJWT', function() {
     username: this.username,
     email: this.email
   }, process.env.JWT_SECRET, {expiresIn: '2 days'});
+
 });
 export default mongoose.model<IUser>("User", UserSchema);
