@@ -2,12 +2,8 @@
 const mongoose = require("mongoose");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
-const Profile_1 = require("./../models/Profile");
 let UserSchema = new mongoose.Schema({
     username: { type: String, lowercase: true, unique: true, required: true },
-    email: { type: String, required: true, unique: true, lowercase: true },
-    state: { type: String, required: true },
-    pType: { type: String, ref: 'PType', required: true },
     passwordHash: { type: String, select: false },
     salt: { type: String, select: false },
     facebookId: String,
@@ -17,23 +13,6 @@ let UserSchema = new mongoose.Schema({
         email: String
     },
     roles: { type: Array, default: ['user'] }
-});
-UserSchema.pre('save', true, function (next, done) {
-    if (this.isNew) {
-        console.log('isNew');
-        Profile_1.default.create().then(() => {
-            next();
-            done();
-        }).catch((e) => {
-            var err = new Error(e);
-            next(err);
-            done();
-        });
-    }
-    else {
-        next();
-        done();
-    }
 });
 UserSchema.method('setPassword', function (password) {
     this.salt = crypto.randomBytes(16).toString('hex');

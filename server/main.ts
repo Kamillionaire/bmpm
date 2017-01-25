@@ -7,7 +7,8 @@ import * as passport from 'passport';
 import * as session from 'express-session';
 const MongoStore = require('connect-mongo')(session)
 import Users from './models/Users';
-// import {PTypesSeeds} from './models/seeds/pTypes';
+import {PTypesSeeds} from './models/seeds/pTypes';
+import Profile from './models/Profile';
 //express routes
 import * as routes from './routes/index';
 
@@ -50,10 +51,10 @@ mongoose.connection.on('connected', () => {
     if(!user)
     // var _p = mongoose.Types.ObjectId();
       var admin = new Users();
-      admin.email = process.env.ADMIN_EMAIL;
+      // admin.email = process.env.ADMIN_EMAIL;
       admin.username = process.env.ADMIN_USERNAME;
-      admin.pType = 'p';
-      admin.state = 'WA';
+      // admin.pType = 'p';
+      // admin.state = 'WA';
       admin.setPassword(process.env.ADMIN_PASSWORD);
       admin.roles = ['user', 'admin'];
       admin.save((err,u)=>{
@@ -112,7 +113,7 @@ app.use('/client', express.static(path.join(__dirname,'../client')));
 // bootstrap api
 app.use('/api', require('./api/users'));
 app.use('/api', require('./api/pTypes'));
-
+// app.use('/api', require('./api/profile'));
 //a server route
 app.use('/', require('./routes/index'));
 

@@ -15,7 +15,7 @@ namespace BMPM.Components{
           this.currentUser = user;
         });
     }
-
+    //
     // logout() {
     //   this.UserService.logout().then(() => {
     //     this.$state.go('main.home', null, {reload: true, notify:true});

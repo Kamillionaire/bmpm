@@ -4,6 +4,7 @@ import * as passport from 'passport';
 import * as jwt from 'jsonwebtoken';
 import Users from '../models/Users';
 import {PType} from '../models/PTypes';
+import Profile from '../models/Profile';
 // import Methods from '../models/Methods';
 
 let router = express.Router();
@@ -22,16 +23,22 @@ router.get('/currentuser', (req, res, next) => {
 });
 
 router.post('/Register', function(req, res, next) {
-  console.log('try harder')
+    console.log('try harder')
     let user = new Users();
     user.username = req.body.username;
-    user.email = req.body.email;
-    user.state = req.body.state;
-    user.pType = req.body.pType;
     user.setPassword(req.body.password);
     user.save(function(err, user) {
         if (err) return next(err);
-        res.status(200).json({ message: "Registration complete." });
+        let userProfile = new Profile();
+        userProfile.dob = req.body.dob;
+        userProfile.email = req.body.email;
+        userProfile.state = req.body.state;
+        userProfile.pType = req.body.pType;
+        userProfile.save((err, profile) => {
+            if (err) return next(err);
+            res.status(200).json({ message: "Registration complete." });
+        })
+
     });
 });
 
@@ -55,10 +62,12 @@ router.post('/login/local', function(req, res, next) {
 });
 
 router.get('/logout/local', (req, res, next) => {
+  req.session.destroy((err) => {
+    if (err) return res.status(500).json({message: 'still authenticated, please try again.'});
+    req.user = null;
     req.logout();
-    return res.json({
-        isauthenticated: req.isAuthenticated()
-    })
+    return res.json({isAuthenticated: req.isAuthenticated()});
+  });
 });
 
 export = router;

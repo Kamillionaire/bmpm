@@ -11,9 +11,6 @@ export interface IFacebook {
 
 export interface IUser extends mongoose.Document {
   username: { type: String, lowercase: true, unique: true},
-  email: { type: String, unique: true, lowercase: true },
-  state: String,
-  pType: String,
   passwordHash: String,
   salt: String,
   facebookId: String,
@@ -26,9 +23,6 @@ export interface IUser extends mongoose.Document {
 
 let UserSchema = new mongoose.Schema({
   username: { type: String, lowercase: true, unique: true, required: true},
-  email: { type: String, required:true, unique: true, lowercase: true },
-  state: { type: String, required: true},
-  pType: { type: String, ref: 'PType', required: true},
   passwordHash: {type: String, select: false},
   salt: {type: String, select: false},
   facebookId: String,
@@ -40,23 +34,23 @@ let UserSchema = new mongoose.Schema({
   roles: {type: Array, default: ['user']}
 });
 
-UserSchema.pre('save', true, function(next, done) {
-    if (this.isNew) {
-      console.log('isNew')
-        Profile.create().then(() => {
-          next();
-            done();
-
-        }).catch((e) => {
-            var err = new Error(e);
-            next(err);
-            done();
-        })
-    } else {
-      next();
-      done();
-    }
-});
+// UserSchema.pre('save', true, function(next, done) {
+//     if (this.isNew) {
+//       console.log('isNew')
+//         Profile.create().then(() => {
+//           next();
+//             done();
+//
+//         }).catch((e) => {
+//             var err = new Error(e);
+//             next(err);
+//             done();
+//         })
+//     } else {
+//       next();
+//       done();
+//     }
+// });
 
 UserSchema.method('setPassword', function(password) {
   this.salt = crypto.randomBytes(16).toString('hex');

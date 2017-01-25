@@ -2,10 +2,9 @@ namespace BMPM.Components {
     const name = 'registration';
     const template = '/client/ngApp/components/registration/registration.html';
     export class Registration {
-        public user;
+        public user = {dob:new Date()}
         public pTypes;
         public states;
-
         constructor(
             private UserService: BMPM.Services.UserService,
             private $state: ng.ui.IStateService,
@@ -21,7 +20,8 @@ namespace BMPM.Components {
 
         register() {
             this.UserService.register(this.user).then((result) => {
-                alert('Successful login!')
+                alert('You did it!, now go login!')
+                this.$state.go('main.login', null, { reload: true, notify: true });
             }).catch((e) => {
                 throw new Error(e);
             })

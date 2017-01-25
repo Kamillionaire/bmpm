@@ -1,7 +1,9 @@
 
 <ul class="nav nav-pills">
-  <li><a ui-sref="main.home">Home</a></li>
-  <li><a ui-sref="main.login" ng-if = "!vm.isAuthenticated">Login</a></li>
-  <li><a ui-sref="main.register" ng-if = "!vm.isAuthenticated">Register</a></li>
-  <li><button class = "btn btn-warning" ng-if = "vm.isAuthenticated" ng-click = "vm.logout()">Logout</button></li>
+  <li><button class = "btn btn-primary" ui-sref="main.home">Home</button></li>
+  <li><button class = "btn btn-primary" ui-sref="main.login" ng-if = "!vm.isAuthenticated">Login</button></li>
+  <li><button class = "btn btn-primary" ui-sref="main.register" ng-if = "!vm.isAuthenticated">Register</button></li>
+  <li><button class = "btn btn-success" ng-if = "vm.isAuthenticated" ng-click = "vm.logout()">Logout</button></li>
+  <a target = "_blank" href ="https://www.16personalities.com/free-personality-test"><li><button class = "btn btn-info" ng-if = "!vm.isAuthenticated">Take The Quiz</button></li></a>
+
 </ul>

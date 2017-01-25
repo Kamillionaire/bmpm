@@ -9,6 +9,7 @@ var BMPM;
                 var _this = this;
                 this.UserService = UserService;
                 this.$state = $state;
+                this.user = { dob: new Date() };
                 $http.get('/api/pTypes').then(function (res) {
                     _this.pTypes = res.data;
                 }).catch(function (e) {
@@ -17,8 +18,10 @@ var BMPM;
                 this.states = STATES.all;
             }
             Registration.prototype.register = function () {
+                var _this = this;
                 this.UserService.register(this.user).then(function (result) {
-                    alert('Successful login!');
+                    alert('You did it!, now go login!');
+                    _this.$state.go('main.login', null, { reload: true, notify: true });
                 }).catch(function (e) {
                     throw new Error(e);
                 });

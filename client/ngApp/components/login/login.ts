@@ -3,6 +3,8 @@ namespace BMPM.Components{
   const template='/client/ngApp/components/login/login.html';
   export class Login {
     public user;
+    public alerts =[];
+
     constructor(
       private UserService: BMPM.Services.UserService,
       private $state: ng.ui.IStateService,
@@ -20,10 +22,13 @@ namespace BMPM.Components{
     public login(user) {
       console.log(user)
       this.UserService.login(user).then((res) => {
-         this.$state.go('main.home', null, {reload: true, notify:true});
+         this.$state.go('main.profile', null, {reload: true, notify:true});
       }).catch((err) => {
-        alert('Bunk login, please try again.');
+        this.alerts.push({type:'warning',message:'Nope! Try again'})
       });
+    }
+    close (i){
+      this.alerts.splice(i,1);
     }
     logout() {
       this.UserService.logout().then(() => {

@@ -43,6 +43,11 @@ namespace BMPM {
           template: '<registration></registration>',
           parent: 'main'
         })
+        .state('main.profile', {
+          url: '/profile',
+          template: '<profile></profile>',
+          parent: 'main'
+        })
 
       $urlRouterProvider.otherwise('/');
       $locationProvider.html5Mode(true);

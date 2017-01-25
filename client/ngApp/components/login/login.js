@@ -9,6 +9,7 @@ var BMPM;
                 this.UserService = UserService;
                 this.$state = $state;
                 this.Session = Session;
+                this.alerts = [];
             }
             Login.prototype.registration = function (user) {
                 var _this = this;
@@ -23,10 +24,13 @@ var BMPM;
                 var _this = this;
                 console.log(user);
                 this.UserService.login(user).then(function (res) {
-                    _this.$state.go('main.home', null, { reload: true, notify: true });
+                    _this.$state.go('main.profile', null, { reload: true, notify: true });
                 }).catch(function (err) {
-                    alert('Bunk login, please try again.');
+                    _this.alerts.push({ type: 'warning', message: 'Nope! Try again' });
                 });
+            };
+            Login.prototype.close = function (i) {
+                this.alerts.splice(i, 1);
             };
             Login.prototype.logout = function () {
                 var _this = this;

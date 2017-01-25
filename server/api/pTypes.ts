@@ -40,7 +40,7 @@ router.put('/ptypes/:id', (req, res, next) => {
         req.body,
         {},
         (e, data) => {
-            if (e) return next({ message: 'Could Not Find Movies', Error: e });
+            if (e) return next({ message: 'Could Not Find Personality Type', Error: e });
             res.json(data);
         });
 });
