@@ -1,11 +1,13 @@
 <h1>Register</h1>
+<div uib-alert dismiss-on-timeout="5000" ng-repeat="alert in vm.alerts" ng-class="'alert-' + (alert.type || 'warning')" close="vm.close($index)">{{alert.message}}</div>
+
 <div class="well">
 
 
     <form ng-submit="vm.register()" class="form-horizontal">
 
         <fieldset>
-            <legend>Legend</legend>
+            <!-- <legend>Registration Form</legend> -->
 
 
             <div class="form-group" "form-group-justified-middle">
@@ -28,7 +30,7 @@
             </div>
 
             <div class="form-group">
-                <label for="inputDob" class="col-lg-2 control-label">DOB</label>
+                <labe0 for="inputDob" class="col-xs-1 control-label">DOB</label>
                 <div class="col-lg-10">
                   <div uib-datepicker ng-model="vm.user.dob" class="well well-sm"></div>
                 </div>

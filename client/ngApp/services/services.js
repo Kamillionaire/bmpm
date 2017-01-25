@@ -8,7 +8,7 @@ var BMPM;
                 this.LogoutResource = $resource('/api/logout/local');
                 this.LoginResource = $resource('/api/login/local');
                 this.RegisterResource = $resource('/api/Register');
-                this.UserResource = $resource('/api/users/:id');
+                this.UserResource = $resource('/api/users/:username');
             }
             UserService.prototype.login = function (user) {
                 return this.LoginResource.save(user).$promise;
@@ -28,6 +28,18 @@ var BMPM;
             return UserService;
         }());
         Services.UserService = UserService;
+        var ProfileService = (function () {
+            function ProfileService($resource) {
+                this.$resource = $resource;
+                this.ProfileResource = $resource('/api/profile/:username', { username: '@username' });
+            }
+            ProfileService.prototype.getProfile = function (username) {
+                return this.ProfileResource.get({ username: username }).$promise;
+            };
+            return ProfileService;
+        }());
+        Services.ProfileService = ProfileService;
+        ;
         var Session = (function () {
             function Session($sessionStorage) {
                 this.$sessionStorage = $sessionStorage;
@@ -68,5 +80,6 @@ var BMPM;
         Services.Session = Session;
         angular.module('bmpm').service('Session', Session);
         angular.module('bmpm').service('UserService', UserService);
+        angular.module('bmpm').service('ProfileService', ProfileService);
     })(Services = BMPM.Services || (BMPM.Services = {}));
 })(BMPM || (BMPM = {}));

@@ -113,7 +113,8 @@ app.use('/client', express.static(path.join(__dirname,'../client')));
 // bootstrap api
 app.use('/api', require('./api/users'));
 app.use('/api', require('./api/pTypes'));
-// app.use('/api', require('./api/profile'));
+app.use('/api', require('./api/profile'));
+
 //a server route
 app.use('/', require('./routes/index'));
 

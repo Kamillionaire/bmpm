@@ -5,6 +5,8 @@ namespace BMPM.Components {
         public user = {dob:new Date()}
         public pTypes;
         public states;
+        public alerts =[];
+
         constructor(
             private UserService: BMPM.Services.UserService,
             private $state: ng.ui.IStateService,
@@ -20,11 +22,13 @@ namespace BMPM.Components {
 
         register() {
             this.UserService.register(this.user).then((result) => {
-                alert('You did it!, now go login!')
-                this.$state.go('main.login', null, { reload: true, notify: true });
-            }).catch((e) => {
-                throw new Error(e);
+              this.$state.go('main.login', null, { reload: true, notify: true });
+            }).catch((err) => {
+                this.alerts.push({type:'warning',message:'Please fill out all fields.'});
             })
+        }
+        close (i){
+          this.alerts.splice(i,1);
         }
     }
 

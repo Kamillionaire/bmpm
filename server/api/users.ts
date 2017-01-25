@@ -30,6 +30,7 @@ router.post('/Register', function(req, res, next) {
     user.save(function(err, user) {
         if (err) return next(err);
         let userProfile = new Profile();
+        userProfile.username = req.body.username;
         userProfile.dob = req.body.dob;
         userProfile.email = req.body.email;
         userProfile.state = req.body.state;
@@ -55,7 +56,7 @@ router.post('/login/local', function(req, res, next) {
             if (err) return res.status(500).json({ message: 'login failed' });
             req.session.save(function(err) {
                 if (err) return res.status(500).json({ message: 'session failed' });
-                return res.json({ message: 'session successful' });
+                return res.json(user);
             });
         });
     })(req, res, next);

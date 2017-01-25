@@ -11,20 +11,12 @@ namespace BMPM.Components{
       private Session: BMPM.Services.Session
     ) {
     }
-    public registration(user) {
-      this.UserService.register(user).then((res) => {
-      this.Session.create(Registration)
-        this.$state.go('main.home', null, {reload: true, notify:true});
-      }).catch((err) => {
-        alert('Bunk registration, please try again.');
-      });
-    }
+
     public login(user) {
-      console.log(user)
       this.UserService.login(user).then((res) => {
-         this.$state.go('main.profile', null, {reload: true, notify:true});
+         this.$state.go('main.profile', {username:res.username}, {reload: true, notify:true});
       }).catch((err) => {
-        this.alerts.push({type:'warning',message:'Nope! Try again'})
+        this.alerts.push({type:'warning',message:'Something went awry!!, Try again!'})
       });
     }
     close (i){

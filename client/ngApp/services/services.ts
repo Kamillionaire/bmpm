@@ -8,6 +8,13 @@ namespace BMPM.Services {
         public UserResource;
         private isLoggedIn;
 
+        constructor(private $resource: ng.resource.IResourceService) {
+
+            this.LogoutResource = $resource('/api/logout/local');
+            this.LoginResource = $resource('/api/login/local');
+            this.RegisterResource = $resource('/api/Register');
+            this.UserResource = $resource('/api/users/:username');
+        }
         public login(user) {
             return this.LoginResource.save(user).$promise;
         }
@@ -28,19 +35,20 @@ namespace BMPM.Services {
             return this.$resource('/api/currentuser').get().$promise;
         }
 
-        constructor(private $resource: ng.resource.IResourceService) {
-
-            this.LogoutResource = $resource('/api/logout/local');
-            this.LoginResource = $resource('/api/login/local');
-            this.RegisterResource = $resource('/api/Register');
-            this.UserResource = $resource('/api/users/:id');
-        }
     }
+    export class ProfileService {
+        public ProfileResource
+      constructor(private $resource: ng.resource.IResourceService){
+            this.ProfileResource = $resource('/api/profile/:username',{username:'@username'});
 
+      }
+      public getProfile(username) {
+          return this.ProfileResource.get({username:username}).$promise;
+      }
+    };
 
     export class Session {
         public user;
-
         constructor(
             private $sessionStorage: angular.storage.IStorageService
         ) {
@@ -87,5 +95,6 @@ namespace BMPM.Services {
     }
     angular.module('bmpm').service('Session', Session);
     angular.module('bmpm').service('UserService', UserService);
+    angular.module('bmpm').service('ProfileService', ProfileService);
 
 }

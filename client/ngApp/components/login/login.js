@@ -11,22 +11,12 @@ var BMPM;
                 this.Session = Session;
                 this.alerts = [];
             }
-            Login.prototype.registration = function (user) {
-                var _this = this;
-                this.UserService.register(user).then(function (res) {
-                    _this.Session.create(Components.Registration);
-                    _this.$state.go('main.home', null, { reload: true, notify: true });
-                }).catch(function (err) {
-                    alert('Bunk registration, please try again.');
-                });
-            };
             Login.prototype.login = function (user) {
                 var _this = this;
-                console.log(user);
                 this.UserService.login(user).then(function (res) {
-                    _this.$state.go('main.profile', null, { reload: true, notify: true });
+                    _this.$state.go('main.profile', { username: res.username }, { reload: true, notify: true });
                 }).catch(function (err) {
-                    _this.alerts.push({ type: 'warning', message: 'Nope! Try again' });
+                    _this.alerts.push({ type: 'warning', message: 'Something went awry!!, Try again!' });
                 });
             };
             Login.prototype.close = function (i) {

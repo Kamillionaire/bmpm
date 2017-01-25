@@ -1,33 +1,34 @@
 "use strict";
-const express = require("express");
-const passport = require("passport");
-const Users_1 = require("../models/Users");
-const Profile_1 = require("../models/Profile");
-let router = express.Router();
+var express = require("express");
+var passport = require("passport");
+var Users_1 = require("../models/Users");
+var Profile_1 = require("../models/Profile");
+var router = express.Router();
 router.get('/users/:id', function (req, res, next) {
-    Users_1.default.findOne(req.params._id).select('-passwordHash -salt').then((user) => {
+    Users_1.default.findOne(req.params._id).select('-passwordHash -salt').then(function (user) {
         return res.status(200).json(user);
-    }).catch((err) => {
+    }).catch(function (err) {
         return res.status(401).json({ err: 'User not found.' });
     });
 });
-router.get('/currentuser', (req, res, next) => {
+router.get('/currentuser', function (req, res, next) {
     return res.json(req.user);
 });
 router.post('/Register', function (req, res, next) {
     console.log('try harder');
-    let user = new Users_1.default();
+    var user = new Users_1.default();
     user.username = req.body.username;
     user.setPassword(req.body.password);
     user.save(function (err, user) {
         if (err)
             return next(err);
-        let userProfile = new Profile_1.default();
+        var userProfile = new Profile_1.default();
+        userProfile.username = req.body.username;
         userProfile.dob = req.body.dob;
         userProfile.email = req.body.email;
         userProfile.state = req.body.state;
         userProfile.pType = req.body.pType;
-        userProfile.save((err, profile) => {
+        userProfile.save(function (err, profile) {
             if (err)
                 return next(err);
             res.status(200).json({ message: "Registration complete." });
@@ -41,19 +42,19 @@ router.post('/login/local', function (req, res, next) {
     passport.authenticate('local', { session: true }, function (err, user, info) {
         if (err)
             return next(err);
-        req.logIn(user, (err) => {
+        req.logIn(user, function (err) {
             if (err)
                 return res.status(500).json({ message: 'login failed' });
             req.session.save(function (err) {
                 if (err)
                     return res.status(500).json({ message: 'session failed' });
-                return res.json({ message: 'session successful' });
+                return res.json(user);
             });
         });
     })(req, res, next);
 });
-router.get('/logout/local', (req, res, next) => {
-    req.session.destroy((err) => {
+router.get('/logout/local', function (req, res, next) {
+    req.session.destroy(function (err) {
         if (err)
             return res.status(500).json({ message: 'still authenticated, please try again.' });
         req.user = null;

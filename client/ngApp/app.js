@@ -35,9 +35,12 @@ var BMPM;
             parent: 'main'
         })
             .state('main.profile', {
-            url: '/profile',
-            template: '<profile></profile>',
-            parent: 'main'
+            url: '/profile/:username',
+            parent: 'main',
+            template: '<profile profile="$resolve.profile"></profile>',
+            resolve: {
+                profile: function (ProfileService, $stateParams) { return ProfileService.getProfile($stateParams['username']); }
+            }
         });
         $urlRouterProvider.otherwise('/');
         $locationProvider.html5Mode(true);
@@ -77,6 +80,9 @@ var BMPM;
                         $state.go('home');
                     }
                 }
+            });
+            $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+                event.preventDefault();
             });
         }
     ]);

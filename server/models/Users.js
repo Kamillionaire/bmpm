@@ -1,8 +1,8 @@
 "use strict";
-const mongoose = require("mongoose");
-const crypto = require("crypto");
-const jwt = require("jsonwebtoken");
-let UserSchema = new mongoose.Schema({
+var mongoose = require("mongoose");
+var crypto = require("crypto");
+var jwt = require("jsonwebtoken");
+var UserSchema = new mongoose.Schema({
     username: { type: String, lowercase: true, unique: true, required: true },
     passwordHash: { type: String, select: false },
     salt: { type: String, select: false },
@@ -14,12 +14,29 @@ let UserSchema = new mongoose.Schema({
     },
     roles: { type: Array, default: ['user'] }
 });
+// UserSchema.pre('save', true, function(next, done) {
+//     if (this.isNew) {
+//       console.log('isNew')
+//         Profile.create().then(() => {
+//           next();
+//             done();
+//
+//         }).catch((e) => {
+//             var err = new Error(e);
+//             next(err);
+//             done();
+//         })
+//     } else {
+//       next();
+//       done();
+//     }
+// });
 UserSchema.method('setPassword', function (password) {
     this.salt = crypto.randomBytes(16).toString('hex');
     this.passwordHash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
 });
 UserSchema.method('validatePassword', function (password) {
-    let hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
+    var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
     return (hash === this.passwordHash);
 });
 UserSchema.method('generateJWT', function () {

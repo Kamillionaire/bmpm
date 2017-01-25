@@ -7,7 +7,7 @@ export interface IProfile extends mongoose.Document {
   state: { type: String, required: true},
   pType: { type: String, ref: 'PType', required: true},
   picture:string,
-  username:String,
+  username:{type: String, required:true, unique: true, lowercase: true},
   nickname:String,
   detail:String
 }
@@ -17,7 +17,7 @@ let Profile = new mongoose.Schema({
   state: { type: String, required: true},
   pType: { type: String, ref: 'PType', required: true},
   picture:String,
-  username:String,
+  username:{type: String, required:true, unique: true, lowercase: true},
   nickname:String,
   detail:String
 });

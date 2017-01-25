@@ -10,6 +10,7 @@ var BMPM;
                 this.UserService = UserService;
                 this.$state = $state;
                 this.user = { dob: new Date() };
+                this.alerts = [];
                 $http.get('/api/pTypes').then(function (res) {
                     _this.pTypes = res.data;
                 }).catch(function (e) {
@@ -20,11 +21,13 @@ var BMPM;
             Registration.prototype.register = function () {
                 var _this = this;
                 this.UserService.register(this.user).then(function (result) {
-                    alert('You did it!, now go login!');
                     _this.$state.go('main.login', null, { reload: true, notify: true });
-                }).catch(function (e) {
-                    throw new Error(e);
+                }).catch(function (err) {
+                    _this.alerts.push({ type: 'warning', message: 'Please fill out all fields.' });
                 });
+            };
+            Registration.prototype.close = function (i) {
+                this.alerts.splice(i, 1);
             };
             return Registration;
         }());

@@ -44,9 +44,13 @@ namespace BMPM {
           parent: 'main'
         })
         .state('main.profile', {
-          url: '/profile',
-          template: '<profile></profile>',
-          parent: 'main'
+          url: '/profile/:username',
+          parent: 'main',
+          template: '<profile profile="$resolve.profile"></profile>',
+          resolve: {
+            profile: (ProfileService, $stateParams) => ProfileService.getProfile($stateParams['username'])
+          }
+
         })
 
       $urlRouterProvider.otherwise('/');
@@ -99,6 +103,12 @@ namespace BMPM {
               }
             }
           });
+         $rootScope.$on('$stateChangeError',
+            function(event, toState, toParams, fromState, fromParams, error) {
+         // this is required if you want to prevent the $UrlRouter reverting the URL to the previous valid location
+          event.preventDefault();
+
+         })
         }
       ]
     );
