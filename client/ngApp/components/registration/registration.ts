@@ -23,7 +23,9 @@ namespace BMPM.Components {
         register() {
             this.UserService.register(this.user).then((result) => {
               this.$state.go('main.login', null, { reload: true, notify: true });
+
             }).catch((err) => {
+              console.log(err)
                 this.alerts.push({type:'warning',message:'Please fill out all fields.'});
             })
         }

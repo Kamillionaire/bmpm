@@ -3,14 +3,14 @@ import * as mongoose from 'mongoose';
 let Schema = mongoose.Schema;
 
 export interface IPType extends mongoose.Document{
-  type: string,
-  name: string,
+  acronym: string,
+  nickname: string,
   detail: string,
 };
 
 let PTypeSchema = new mongoose.Schema({
-  type: String,
-  name: String,
+  acronym: String,
+  nickname: String,
   detail: String,
 });
 

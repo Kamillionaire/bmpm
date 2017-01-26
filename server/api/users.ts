@@ -25,7 +25,8 @@ router.get('/currentuser', (req, res, next) => {
 router.post('/Register', function(req, res, next) {
     console.log('try harder')
     let user = new Users();
-    user.username = req.body.username;
+    let lc = req.body.username
+    user.username = lc.toLowerCase();
     user.setPassword(req.body.password);
     user.save(function(err, user) {
         if (err) return next(err);
@@ -42,7 +43,8 @@ router.post('/Register', function(req, res, next) {
 
     });
 });
-
+// TODO
+// lowercase username @login
 router.post('/login/local', function(req, res, next) {
 
     if (!req.body.username && !req.body.password) {
@@ -53,7 +55,7 @@ router.post('/login/local', function(req, res, next) {
 
         if (err) return next(err);
         req.logIn(user, (err) => {
-            if (err) return res.status(500).json({ message: 'login failed' });
+            if (err) return next ({ message: 'login failed', Error:err});
             req.session.save(function(err) {
                 if (err) return res.status(500).json({ message: 'session failed' });
                 return res.json(user);

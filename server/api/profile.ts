@@ -14,7 +14,7 @@ let router = express.Router();
 router.get('/profile/:username', (req, res, next) => {
   Profile.findOne({
     username:req.params.username
-  }).then((profile)=>{
+  }).populate('pType').then((profile)=>{
      return res.json(profile)
 
   }).catch ((e)=>{

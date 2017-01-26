@@ -17,7 +17,8 @@ router.get('/currentuser', function (req, res, next) {
 router.post('/Register', function (req, res, next) {
     console.log('try harder');
     var user = new Users_1.default();
-    user.username = req.body.username;
+    var lc = req.body.username;
+    user.username = lc.toLowerCase();
     user.setPassword(req.body.password);
     user.save(function (err, user) {
         if (err)
@@ -44,7 +45,7 @@ router.post('/login/local', function (req, res, next) {
             return next(err);
         req.logIn(user, function (err) {
             if (err)
-                return res.status(500).json({ message: 'login failed' });
+                return next({ message: 'login failed', Error: err });
             req.session.save(function (err) {
                 if (err)
                     return res.status(500).json({ message: 'session failed' });

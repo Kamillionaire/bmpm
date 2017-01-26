@@ -1,14 +1,14 @@
 "use strict";
-var passport = require("passport");
-var LocalStrategy = require('passport-local').Strategy;
-var FacebookStrategy = require('passport-facebook').Strategy;
-var Users_1 = require("../models/Users");
+const passport = require("passport");
+let LocalStrategy = require('passport-local').Strategy;
+let FacebookStrategy = require('passport-facebook').Strategy;
+const Users_1 = require("../models/Users");
 passport.serializeUser(function (user, done) {
     console.log('serializeUser', user);
     done(null, user);
 });
 passport.deserializeUser(function (obj, done) {
-    Users_1.default.findOne({ _id: obj['_id'] }, { passwordHash: 0, salt: 0 }, function (err, user) {
+    Users_1.default.findOne({ _id: obj['_id'] }, { passwordHash: 0, salt: 0 }, (err, user) => {
         if (err)
             done(null, {});
         done(null, user);
@@ -25,21 +25,23 @@ passport.use(new FacebookStrategy({
             return done(err, user);
         }
         else {
-            var u_1 = new Users_1.default();
-            u_1.username = profile.displayName;
-            u_1.facebookId = profile.id;
-            u_1.facebook.name = profile.displayName;
-            u_1.facebook.token = accessToken;
-            u_1.save(function (err) {
+            let u = new Users_1.default();
+            u.username = profile.displayName;
+            u.facebookId = profile.id;
+            u.facebook.name = profile.displayName;
+            u.facebook.token = accessToken;
+            u.save((err) => {
                 if (err)
                     throw err;
-                return done(null, u_1);
+                return done(null, u);
             });
         }
     });
 }));
 passport.use(new LocalStrategy(function (username, password, done) {
-    Users_1.default.findOne({ username: username }).select('+salt +passwordHash')
+    let lc = username.toLowerCase();
+    console.log(lc);
+    Users_1.default.findOne({ username: lc }).select('+salt +passwordHash')
         .exec(function (err, user) {
         if (err)
             return done(err);

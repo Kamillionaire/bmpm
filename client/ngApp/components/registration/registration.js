@@ -23,6 +23,7 @@ var BMPM;
                 this.UserService.register(this.user).then(function (result) {
                     _this.$state.go('main.login', null, { reload: true, notify: true });
                 }).catch(function (err) {
+                    console.log(err);
                     _this.alerts.push({ type: 'warning', message: 'Please fill out all fields.' });
                 });
             };

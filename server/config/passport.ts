@@ -44,7 +44,9 @@ passport.use(new FacebookStrategy({
 ));
 
 passport.use(new LocalStrategy(function(username: string, password: string, done) {
-  Users.findOne({ username: username }).select('+salt +passwordHash')
+  let lc = username.toLowerCase();
+  console.log(lc)
+  Users.findOne({ username: lc }).select('+salt +passwordHash')
   .exec(function(err, user) {
 
     if(err) return done(err);

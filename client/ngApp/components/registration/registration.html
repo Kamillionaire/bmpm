@@ -30,7 +30,7 @@
             </div>
 
             <div class="form-group">
-                <labe0 for="inputDob" class="col-xs-1 control-label">DOB</label>
+                <label for="inputDob" class="col-xs-1 control-label">DOB</label>
                 <div class="col-lg-10">
                   <div uib-datepicker ng-model="vm.user.dob" class="well well-sm"></div>
                 </div>
@@ -49,13 +49,13 @@
             </div>
 
             <div class="btn-group" uib-dropdown>
-                <button id="split-button" type="button" class="btn btn-warning">{{vm.user.pType ||'P-Type'}}</button>
+                <button id="split-button" type="button" class="btn btn-warning">{{vm.user.pType.acronym ||'P-Type'}}</button>
                 <button type="button" class="btn btn-warning" uib-dropdown-toggle>
                     <span class="caret"></span>
                     <span class="sr-only">Split button!</span>
                 </button>
                 <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
-                    <li ng-click="vm.user.pType = pType._id" ng-repeat="pType in vm.pTypes" role="menuitem">{{pType.type}}</li>
+                    <li ng-click="vm.user.pType = pType" ng-repeat="pType in vm.pTypes" role="menuitem"><a>{{pType.acronym}}</a></li>
                 </ul>
             </div>
         </div>

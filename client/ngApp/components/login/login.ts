@@ -13,6 +13,7 @@ namespace BMPM.Components{
     }
 
     public login(user) {
+
       this.UserService.login(user).then((res) => {
          this.$state.go('main.profile', {username:res.username}, {reload: true, notify:true});
       }).catch((err) => {

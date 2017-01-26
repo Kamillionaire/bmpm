@@ -29,7 +29,7 @@ require("./config/passport");
 //db connections
 // mongodb://user:password@sub.mlab.com:39482/myapp
 // instead of process if you don't use dotenv package
-mongoose.connect(process.env.MONGO_URI);
+mongoose.connect(process.env.MONGO_URI)
 
 //optional
 mongoose.connection.on('connected', () => {
@@ -38,12 +38,12 @@ mongoose.connection.on('connected', () => {
 
   // TODO
   //if dev PTypes do not exist, run this
-  if(dev) {
+  // if(dev) {
     // (only drop data and seed if there are no data types)
-    // mongoose.connection.db.dropDatabase();
-    //   let s=new PTypesSeeds();
-    //   s.createSeeds();
-  }
+  //   mongoose.connection.db.dropDatabase();
+  //     let s=new PTypesSeeds();
+  //     s.createSeeds();
+  // }
 
   Users.findOne({username: 'admin'}, (err, user) => {
     if(err) return;
@@ -53,7 +53,7 @@ mongoose.connection.on('connected', () => {
       var admin = new Users();
       // admin.email = process.env.ADMIN_EMAIL;
       admin.username = process.env.ADMIN_USERNAME;
-      // admin.pType = 'p';
+      // admin.pType = 'ENFP';
       // admin.state = 'WA';
       admin.setPassword(process.env.ADMIN_PASSWORD);
       admin.roles = ['user', 'admin'];
