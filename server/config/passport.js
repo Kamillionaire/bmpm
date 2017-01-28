@@ -1,14 +1,14 @@
 "use strict";
-const passport = require("passport");
-let LocalStrategy = require('passport-local').Strategy;
-let FacebookStrategy = require('passport-facebook').Strategy;
-const Users_1 = require("../models/Users");
+var passport = require("passport");
+var LocalStrategy = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
+var Users_1 = require("../models/Users");
 passport.serializeUser(function (user, done) {
     console.log('serializeUser', user);
     done(null, user);
 });
 passport.deserializeUser(function (obj, done) {
-    Users_1.default.findOne({ _id: obj['_id'] }, { passwordHash: 0, salt: 0 }, (err, user) => {
+    Users_1.default.findOne({ _id: obj['_id'] }, { passwordHash: 0, salt: 0 }, function (err, user) {
         if (err)
             done(null, {});
         done(null, user);
@@ -25,21 +25,21 @@ passport.use(new FacebookStrategy({
             return done(err, user);
         }
         else {
-            let u = new Users_1.default();
-            u.username = profile.displayName;
-            u.facebookId = profile.id;
-            u.facebook.name = profile.displayName;
-            u.facebook.token = accessToken;
-            u.save((err) => {
+            var u_1 = new Users_1.default();
+            u_1.username = profile.displayName;
+            u_1.facebookId = profile.id;
+            u_1.facebook.name = profile.displayName;
+            u_1.facebook.token = accessToken;
+            u_1.save(function (err) {
                 if (err)
                     throw err;
-                return done(null, u);
+                return done(null, u_1);
             });
         }
     });
 }));
 passport.use(new LocalStrategy(function (username, password, done) {
-    let lc = username.toLowerCase();
+    var lc = username.toLowerCase();
     console.log(lc);
     Users_1.default.findOne({ username: lc }).select('+salt +passwordHash')
         .exec(function (err, user) {

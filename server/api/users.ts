@@ -5,7 +5,7 @@ import * as jwt from 'jsonwebtoken';
 import Users from '../models/Users';
 import {PType} from '../models/PTypes';
 import Profile from '../models/Profile';
-// import Methods from '../models/Methods';
+import methods from './methods';
 
 let router = express.Router();
 
@@ -43,8 +43,7 @@ router.post('/Register', function(req, res, next) {
 
     });
 });
-// TODO
-// lowercase username @login
+
 router.post('/login/local', function(req, res, next) {
 
     if (!req.body.username && !req.body.password) {
@@ -71,6 +70,22 @@ router.get('/logout/local', (req, res, next) => {
     req.logout();
     return res.json({isAuthenticated: req.isAuthenticated()});
   });
+});
+
+router.delete('/users/:id', methods.isAdmin,(req, res, next)=> {
+    Users.remove ({_id:req.params.id},(err) => {
+      if (err) return next({message: 'error deleting', error:err})
+        return res.status(200).json({message:'Deleted'});
+    })
+});
+
+router.get('/users/:id', function(req, res, next) {
+    Users.findByIdAndRemove({_id:req.params.id},(err) => {
+      if (err) return next({message: 'error deleting', error:err})
+        return res.status(200).json({message:'Deleted'});
+    }).catch((err) => {
+        return res.status(401).json({ err: 'User not found.' })
+    });
 });
 
 export = router;

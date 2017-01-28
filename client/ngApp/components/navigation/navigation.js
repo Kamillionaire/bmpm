@@ -20,6 +20,15 @@ var BMPM;
                     throw new Error('Unsuccessful logout');
                 });
             };
+            Navigation.prototype.delete = function () {
+                var _this = this;
+                this.UserService.deleteUser(this.Session.user).then(function () {
+                    _this.Session.destroy();
+                    _this.$state.go('main.home', null, { reload: true, notify: true });
+                }).catch(function () {
+                    throw new Error('Unsuccessful logout');
+                });
+            };
             return Navigation;
         }());
         Components.Navigation = Navigation;

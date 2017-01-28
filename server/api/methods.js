@@ -1,10 +1,9 @@
 "use strict";
-var express = require("express");
-var router = express.Router();
-//Express has Express.Request but the interface isn't very good...  requires overrides
+const express = require("express");
+let router = express.Router();
 function setSession(req, res, next, user) {
-    var token = user.generateJWT();
-    return req.logIn(user, function (err) {
+    let token = user.generateJWT();
+    return req.logIn(user, (err) => {
         console.log(err);
         if (err)
             res.status(500).json({ message: 'login failed' });
@@ -16,7 +15,7 @@ function setSession(req, res, next, user) {
     });
 }
 function destroySession(req, res, next) {
-    req.session.destroy(function (err) {
+    req.session.destroy((err) => {
         if (err)
             return res.status(500).json({ message: 'still authenticated, please try again.' });
         req.user = null;
@@ -24,8 +23,23 @@ function destroySession(req, res, next) {
         return res.json({ isAuthenticated: req.isAuthenticated() });
     });
 }
-var methods = {
+function isAdmin(req, res, next) {
+    if (!req.user) {
+        res.status(401).json({ message: 'unauthorized' });
+    }
+    return req.user['roles'].some((v) => v === 'admin') ? next() : res.status(401).json({});
+}
+function deleteProfile(req, res, next) {
+    if (!req.user) {
+        res.status(401).json({ message: 'unauthorized' });
+    }
+    return req.user['roles'].some((v) => v === 'admin') ? next() : res.status(401).json({});
+}
+const methods = {
     setSession: setSession,
-    destroySession: destroySession
+    destroySession: destroySession,
+    isAdmin: isAdmin,
+    deleteProfile: deleteProfile
 };
-module.exports = router;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = methods;

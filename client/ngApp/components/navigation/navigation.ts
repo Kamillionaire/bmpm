@@ -21,6 +21,15 @@ namespace BMPM.Components {
                 throw new Error('Unsuccessful logout');
             });
         }
+        delete() {
+
+            this.UserService.deleteUser(this.Session.user).then(() => {
+                this.Session.destroy();
+                this.$state.go('main.home', null, { reload: true, notify: true });
+            }).catch(() => {
+                throw new Error('Unsuccessful logout');
+            });
+        }
 
     }
     angular.module('bmpm').component(name, {

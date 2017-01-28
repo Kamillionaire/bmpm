@@ -30,9 +30,25 @@ function destroySession(req, res, next) {
   });
 }
 
-const methods = {
-  setSession: setSession,
-  destroySession: destroySession
+function isAdmin(req, res, next) {
+  if(!req.user){
+    res.status(401).json({message: 'unauthorized'});
+  }
+  return req.user['roles'].some((v) => v === 'admin') ? next() : res.status(401).json({});
 }
 
-export = router;
+function deleteProfile(req, res, next) {
+  if(!req.user){
+    res.status(401).json({message: 'unauthorized'});
+  }
+  return req.user['roles'].some((v) => v === 'admin') ? next() : res.status(401).json({});
+}
+
+const methods = {
+  setSession: setSession,
+  destroySession: destroySession,
+  isAdmin: isAdmin,
+  deleteProfile: deleteProfile
+}
+
+export default methods;
