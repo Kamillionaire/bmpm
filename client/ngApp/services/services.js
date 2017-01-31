@@ -8,7 +8,7 @@ var BMPM;
                 this.LogoutResource = $resource('/api/logout/local');
                 this.LoginResource = $resource('/api/login/local');
                 this.RegisterResource = $resource('/api/Register');
-                this.UserResource = $resource('/api/users/:username');
+                this.UserResource = $resource('/api/users/:username', { username: '@username' });
             }
             UserService.prototype.login = function (user) {
                 return this.LoginResource.save(user).$promise;
@@ -25,11 +25,8 @@ var BMPM;
             UserService.prototype.getCurrentUser = function () {
                 return this.$resource('/api/currentuser').get().$promise;
             };
-            UserService.prototype.getProfile = function (username) {
-                return this.ProfileResource.get({ username: username }).$promise;
-            };
-            UserService.prototype.deleteUser = function (id) {
-                return this.UserResource.delete(id).$promise;
+            UserService.prototype.deleteUser = function (username) {
+                return this.UserResource.delete({ username: username }).$promise;
             };
             UserService.prototype.listUsers = function () {
                 return this.UserResource.query().$promise;

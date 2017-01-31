@@ -1,51 +1,18 @@
-<!-- <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="dropdown">{{vm.users ||'users'}}</li>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Users<span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menuitem">
-            <li><a ng-repeat = "user in vm.users">{{vm.users}}</a></li>
-            <li class="divider"></li>
-          </ul>
-      </ul>
-      <form class="navbar-form navbar-right" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
-    </div>
-  </div>
-</nav> -->
+<alerts messages = "vm.alerts" ></alerts>
+
+<hr>
 
 <table ng-table="vm.tableParams" class="table">
-    <tr ng-repeat="user in $data">
+    <tr ng-repeat="user in $data" ng-form="rowForm">
       <td title="'username'" sortable="'username'">
+        <button class="btn btn-danger btn-sm ng-scope" ng-click="vm.delete(user.username)" ng-if="!row.isEditing">
+          <span class=""></span> Delete
+        </button>
            {{user.username}}</td>
       <td title="'roles'" sortable="'roles'">
            {{user.roles}}</td>
       <td title="'_id'"  sortable="'_id'">
-           {{user._id}}</td>
+           {{user._id}}
+      </td>
     </tr>
 </table>
-
-<!-- <div class="btn-group" uib-dropdown>
-    <button id="split-button" type="button" class="btn btn-warning">{{vm.user.pType.acronym ||'P-Type'}}</button>
-    <button type="button" class="btn btn-warning" uib-dropdown-toggle>
-        <span class="caret"></span>
-        <span class="sr-only">Split button!</span>
-    </button>
-    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
-        <li ng-click="vm.user.pType = pType" ng-repeat="pType in vm.pTypes" role="menuitem"><a>{{pType.acronym}}</a></li>
-    </ul>
-</div> -->
-
-
-    <!-- <tr class="active" ng-repeat="user in vm.users">
-      <div button class = "btn btn-danger" ng-if = "vm.isAuthenticated && vm.isAuthorized('admin')"ng-click = "vm.delete()">Delete</button>
-      </div>
-      <td>User Profiles</td>
-      <td>{{vm.users}}</td>
-  </tbody>
-</table> -->

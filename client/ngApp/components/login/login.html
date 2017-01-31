@@ -1,5 +1,5 @@
 <h1>Login</h1>
-  <div uib-alert dismiss-on-timeout="5000" ng-repeat="alert in vm.alerts" ng-class="'alert-' + (alert.type || 'warning')" close="vm.close($index)">{{alert.message}}</div>
+<alerts messages = "vm.alerts" ></alerts>
 <p>
     <a href="/login/facebook">Login with Facebook</a>
 </p>

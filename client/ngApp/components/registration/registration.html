@@ -1,8 +1,7 @@
 <h1>Register</h1>
-<div uib-alert dismiss-on-timeout="5000" ng-repeat="alert in vm.alerts" ng-class="'alert-' + (alert.type || 'warning')" close="vm.close($index)">{{alert.message}}</div>
 
 <div class="well">
-
+<alerts messages = "vm.alerts" ></alerts>
 
     <form ng-submit="vm.register()" class="form-horizontal">
 

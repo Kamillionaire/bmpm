@@ -71,10 +71,11 @@ router.get('/logout/local', (req, res, next) => {
   });
 });
 
-router.delete('/users/:id', methods.isAdmin,(req, res, next)=> {
-    Users.remove ({_id:req.params.id},(err) => {
+router.delete('/users/:username', methods.isAdmin,(req, res, next)=> {
+    if (req.params.username === 'admin') return res.status(401).json({message:'Yeah right! Admins can not be deleted!!!'});
+    Users.remove ({username:req.params.username},(err) => {
       if (err) return next({message: 'error deleting', error:err})
-        return res.status(200).json({message:'Deleted'});
+        return res.status(200).json({message:'Deleted!'});
     })
 });
 router.get('/users',methods.isAdmin,(req, res, next)=>{

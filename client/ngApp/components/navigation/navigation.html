@@ -5,7 +5,7 @@
   <li><button class = "btn btn-info" ui-sref="main.register" ng-if = "!vm.isAuthenticated">Register</button></li>
   <li><button class = "btn btn-success" ui-sref="main.profile({username: vm.currentUser.username})" ng-if = "vm.isAuthenticated">Profile</button></li>
   <li><button class = "btn btn-warning" ng-if = "vm.isAuthenticated" ng-click = "vm.logout()">Logout</button></li>
-  <li><button class = "btn btn-danger" ng-if = "vm.isAuthenticated && vm.isAuthorized('admin')" ng-click = "vm.delete()">Delete</button></li>
   <li><button class = "btn btn-danger" ng-click="vm.goToState('main.usersIndex')" ng-if = "vm.isAuthenticated && vm.isAuthorized('admin')">Users Index</button></li>
+  <!-- <li><button class = "btn btn-danger" ng-if = "vm.isAuthenticated && vm.isAuthorized('admin')" ng-click = "vm.delete()">Delete</button></li> -->
 
 </ul>

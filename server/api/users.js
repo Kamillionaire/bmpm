@@ -12,7 +12,6 @@ router.get('/users/:id', function (req, res, next) {
         return res.status(401).json({ err: 'User not found.' });
     });
 });
-//CONSTANTLY RETURNS 200 because we are always authorized to check.
 router.get('/currentuser', function (req, res, next) {
     return res.json(req.user);
 });
@@ -65,11 +64,13 @@ router.get('/logout/local', function (req, res, next) {
         return res.json({ isAuthenticated: req.isAuthenticated() });
     });
 });
-router.delete('/users/:id', methods_1.default.isAdmin, function (req, res, next) {
-    Users_1.default.remove({ _id: req.params.id }, function (err) {
+router.delete('/users/:username', methods_1.default.isAdmin, function (req, res, next) {
+    if (req.params.username === 'admin')
+        return res.status(401).json({ message: 'Yeah right! Admins can not be deleted!!!' });
+    Users_1.default.remove({ username: req.params.username }, function (err) {
         if (err)
             return next({ message: 'error deleting', error: err });
-        return res.status(200).json({ message: 'Deleted' });
+        return res.status(200).json({ message: 'Deleted!' });
     });
 });
 router.get('/users', methods_1.default.isAdmin, function (req, res, next) {

@@ -14,7 +14,7 @@ namespace BMPM.Services {
             this.LogoutResource = $resource('/api/logout/local');
             this.LoginResource = $resource('/api/login/local');
             this.RegisterResource = $resource('/api/Register');
-            this.UserResource = $resource('/api/users/:username');
+            this.UserResource = $resource('/api/users/:username',{username:'@username'} );
         }
         public login(user) {
             return this.LoginResource.save(user).$promise;
@@ -36,12 +36,9 @@ namespace BMPM.Services {
             return this.$resource('/api/currentuser').get().$promise;
 
         }
-        public getProfile(username) {
-            return this.ProfileResource.get({username:username}).$promise;
-        }
 
-        public deleteUser(id){
-          return this.UserResource.delete(id).$promise;
+        public deleteUser(username){
+          return this.UserResource.delete({username:username}).$promise;
         }
         public listUsers(){
           return this.UserResource.query().$promise;

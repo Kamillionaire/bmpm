@@ -1,0 +1,1 @@
+<div uib-alert dismiss-on-timeout="5000" ng-repeat="message in vm.messages" ng-class="'alert-' + (message.type || 'danger')" close="vm.close($index)">{{message.message}}</div>

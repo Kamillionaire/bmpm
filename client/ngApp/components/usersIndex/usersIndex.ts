@@ -7,6 +7,9 @@ namespace BMPM.Components{
         public profile;
         public users;
         public tableParams;
+        public Session;
+        public username;
+        public alerts = [];
       constructor(
         private UserService: BMPM.Services.UserService,
         private $state: ng.ui.IStateService,
@@ -25,16 +28,15 @@ namespace BMPM.Components{
 
 
         }} );
-        // this.profileID = $stateParams['username'] === 'me' && !_.isUndefined(this.currentUser.username)
-        //  ? this.currentUser.username : null;
 
         }
-        delete() {
-            // this.UserService.deleteUser(this.Session.user).then(() => {
-            //     this.$state.go('main.usersIndex', null, { reload: true, notify: true });
-            // }).catch(() => {
-            //     throw new Error('Unsuccessful delete');
-            // });
+        delete(username) {
+          confirm('Are you sure you want to delete this?');
+            this.UserService.deleteUser(username).then(() => {
+                this.$state.go('main.usersIndex', null, { reload: true, notify: true });
+            }).catch((e) => {
+              this.alerts.push({type:'danger', message:e.data.message})
+            });
         }
     };
 

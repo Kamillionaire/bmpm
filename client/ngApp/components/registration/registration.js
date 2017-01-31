@@ -27,9 +27,6 @@ var BMPM;
                     _this.alerts.push({ type: 'warning', message: 'Please fill out all fields.' });
                 });
             };
-            Registration.prototype.close = function (i) {
-                this.alerts.splice(i, 1);
-            };
             return Registration;
         }());
         Components.Registration = Registration;

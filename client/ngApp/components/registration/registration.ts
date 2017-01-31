@@ -29,9 +29,7 @@ namespace BMPM.Components {
                 this.alerts.push({type:'warning',message:'Please fill out all fields.'});
             })
         }
-        close (i){
-          this.alerts.splice(i,1);
-        }
+
     }
 
     angular.module('bmpm').component(name, {
