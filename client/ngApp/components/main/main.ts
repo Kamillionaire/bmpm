@@ -8,21 +8,8 @@ namespace BMPM.Components{
       private $state: ng.ui.IStateService,
 
     ) {
-      $state.$current.locals.globals['currentUser'].$promise
-        .then((user) => {
-          this.currentUser = user;
-        }).catch((user) => {
-          this.currentUser = user;
-        });
+
     }
-    //
-    // logout() {
-    //   this.UserService.logout().then(() => {
-    //     this.$state.go('main.home', null, {reload: true, notify:true});
-    //   }).catch(() => {
-    //     throw new Error('Unsuccessful logout');
-    //   });
-    // }
   }
   angular.module('bmpm').component(name,{
     templateUrl: template,

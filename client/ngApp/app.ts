@@ -18,16 +18,18 @@ namespace BMPM {
           url: '',
           abstract: true,
           template: '<main-app></main-app>',
-          resolve: {
-            currentUser: [
-              'UserService', '$state', (UserService, $state) => {
-                return UserService.getCurrentUser((user) => {
-                  return user;
-                }).catch((e) => {
-                  return { username: false };
-                });
-              }]
+            resolve: {
+            currentUser: ['Session', (Session) => {
+              return Session.getUser();
+            }],
+            isAuthenticated: ['Session', (Session) => {
+              return Session.isAuthenticated();
+            }],
+            currentNavItem: ['$state', ($state) => {
+              return $state.current.name;
+            }]
           }
+
           // component:'mainApp'
         })
         .state('main.home', {

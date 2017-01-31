@@ -25,6 +25,9 @@ var BMPM;
             UserService.prototype.getCurrentUser = function () {
                 return this.$resource('/api/currentuser').get().$promise;
             };
+            UserService.prototype.getProfile = function (username) {
+                return this.ProfileResource.get({ username: username }).$promise;
+            };
             UserService.prototype.deleteUser = function (id) {
                 return this.UserResource.delete(id).$promise;
             };

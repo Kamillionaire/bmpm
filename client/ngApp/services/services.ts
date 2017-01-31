@@ -7,6 +7,7 @@ namespace BMPM.Services {
         private RegisterResource;
         public UserResource;
         private isLoggedIn;
+        public ProfileResource
 
         constructor(private $resource: ng.resource.IResourceService) {
 
@@ -33,6 +34,10 @@ namespace BMPM.Services {
 
         public getCurrentUser() {
             return this.$resource('/api/currentuser').get().$promise;
+
+        }
+        public getProfile(username) {
+            return this.ProfileResource.get({username:username}).$promise;
         }
 
         public deleteUser(id){

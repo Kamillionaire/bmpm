@@ -1,3 +1,7 @@
+/// <reference types="angular" />
+/// <reference types="angular-resource" />
+/// <reference types="angular-ui-router" />
+/// <reference types="ngstorage" />
 var BMPM;
 (function (BMPM) {
     angular.module('bmpm', ['ngResource', 'ui.router', 'ngStorage', 'ui.bootstrap', 'ngTable'
@@ -9,15 +13,15 @@ var BMPM;
             abstract: true,
             template: '<main-app></main-app>',
             resolve: {
-                currentUser: [
-                    'UserService', '$state', function (UserService, $state) {
-                        return UserService.getCurrentUser(function (user) {
-                            return user;
-                        }).catch(function (e) {
-                            return { username: false };
-                        });
-                    }
-                ]
+                currentUser: ['Session', function (Session) {
+                        return Session.getUser();
+                    }],
+                isAuthenticated: ['Session', function (Session) {
+                        return Session.isAuthenticated();
+                    }],
+                currentNavItem: ['$state', function ($state) {
+                        return $state.current.name;
+                    }]
             }
         })
             .state('main.home', {
@@ -56,6 +60,7 @@ var BMPM;
     })
         .factory('_', ['$window',
         function ($window) {
+            // place lodash include before angular
             return $window._;
         }
     ])
@@ -81,6 +86,7 @@ var BMPM;
                 if (authorizedRoles && !Session.isAuthorized(authorizedRoles)) {
                     event.preventDefault();
                     if (Session.isAuthenticated()) {
+                        //TODO dialog
                         $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
                         $state.go('home');
                     }
@@ -91,6 +97,7 @@ var BMPM;
                 }
             });
             $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+                // this is required if you want to prevent the $UrlRouter reverting the URL to the previous valid location
                 event.preventDefault();
             });
         }

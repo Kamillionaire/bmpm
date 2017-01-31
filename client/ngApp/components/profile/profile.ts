@@ -5,6 +5,7 @@ namespace BMPM.Components{
         public currentUser;
         public profileID;
         public profile;
+        public alerts;
       constructor(
         private UserService: BMPM.Services.UserService,
         private $state: ng.ui.IStateService,
@@ -18,7 +19,14 @@ namespace BMPM.Components{
         //  ? this.currentUser.username : null;
 
         }
+        public login(user) {
 
+          this.UserService.login(user).then((res) => {
+             this.$state.go('main.profile', {username:res.username}, {reload: true, notify:true});
+          }).catch((err) => {
+            this.alerts.push({type:'warning',message:'Something went awry!!, Try again!'})
+          });
+        }
     };
 
   angular.module('bmpm').component(name,{

@@ -9,10 +9,20 @@ var BMPM;
                 this.$state = $state;
                 this.UserService = UserService;
                 this.Session = Session;
+                this.alerts = [];
+                this.currentUser = Session.getUser();
                 this.isAuthenticated = Session.isAuthenticated();
             }
             Navigation.prototype.isAuthorized = function (roles) {
                 return this.Session.isAuthorized(roles);
+            };
+            Navigation.prototype.login = function (user) {
+                var _this = this;
+                this.UserService.login(user).then(function (res) {
+                    _this.$state.go('main.profile', { username: res.username }, { reload: true, notify: true });
+                }).catch(function (err) {
+                    _this.alerts.push({ type: 'warning', message: 'Something went awry!!, Try again!' });
+                });
             };
             Navigation.prototype.logout = function () {
                 var _this = this;
