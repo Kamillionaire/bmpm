@@ -10,7 +10,9 @@ namespace BMPM.Components {
             $stateParams: ng.ui.IStateParamsService
         ) {
           this.isAuthenticated = Session.isAuthenticated();
-
+        }
+        isAuthorized(roles){
+          return this.Session.isAuthorized(roles);
         }
         logout() {
 
@@ -29,6 +31,10 @@ namespace BMPM.Components {
             }).catch(() => {
                 throw new Error('Unsuccessful logout');
             });
+        }
+        goToState(state:string){
+          console.log(state)
+          this.$state.go(state);
         }
 
     }

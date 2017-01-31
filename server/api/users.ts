@@ -40,7 +40,6 @@ router.post('/Register', function(req, res, next) {
             if (err) return next(err);
             res.status(200).json({ message: "Registration complete." });
         })
-
     });
 });
 
@@ -78,14 +77,12 @@ router.delete('/users/:id', methods.isAdmin,(req, res, next)=> {
         return res.status(200).json({message:'Deleted'});
     })
 });
-
-router.get('/users/:id', function(req, res, next) {
-    Users.findByIdAndRemove({_id:req.params.id},(err) => {
-      if (err) return next({message: 'error deleting', error:err})
-        return res.status(200).json({message:'Deleted'});
-    }).catch((err) => {
-        return res.status(401).json({ err: 'User not found.' })
-    });
-});
+router.get('/users',methods.isAdmin,(req, res, next)=>{
+  Users.find().then((users)=>{
+    res.json(users)
+  }).catch ((err)=>{
+    return next({message:'can not list users', error:err})
+  });
+})
 
 export = router;

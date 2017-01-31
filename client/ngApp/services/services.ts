@@ -38,6 +38,9 @@ namespace BMPM.Services {
         public deleteUser(id){
           return this.UserResource.delete(id).$promise;
         }
+        public listUsers(){
+          return this.UserResource.query().$promise;
+        }
     }
     export class ProfileService {
         public ProfileResource
@@ -45,9 +48,6 @@ namespace BMPM.Services {
             this.ProfileResource = $resource('/api/profile/:username',{username:'@username'});
 
       }
-      // public deleteProfile(username){
-      //   return this.ProfileResource.deleteProfile({username:username}).$promise;
-      // }
       public getProfile(username) {
           return this.ProfileResource.get({username:username}).$promise;
       }
@@ -99,17 +99,6 @@ namespace BMPM.Services {
         }
     };
 
-    export class deleteProfile {
-      private deleteProfile
-      public getUser():Object {
-          return this.deleteProfile['user'] || {};
-      }
-
-      delete() {
-              this.deleteProfile.$reset();
-              this.deleteProfile['user'] = {};
-          }
-    }
 
     angular.module('bmpm').service('Session', Session);
     angular.module('bmpm').service('UserService', UserService);

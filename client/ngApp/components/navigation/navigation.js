@@ -11,6 +11,9 @@ var BMPM;
                 this.Session = Session;
                 this.isAuthenticated = Session.isAuthenticated();
             }
+            Navigation.prototype.isAuthorized = function (roles) {
+                return this.Session.isAuthorized(roles);
+            };
             Navigation.prototype.logout = function () {
                 var _this = this;
                 this.UserService.logout().then(function () {
@@ -28,6 +31,10 @@ var BMPM;
                 }).catch(function () {
                     throw new Error('Unsuccessful logout');
                 });
+            };
+            Navigation.prototype.goToState = function (state) {
+                console.log(state);
+                this.$state.go(state);
             };
             return Navigation;
         }());

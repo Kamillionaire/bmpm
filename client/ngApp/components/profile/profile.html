@@ -1,6 +1,6 @@
 
 <hr>
-<div class="panel panel-info">
+<div class="panel panel-default">
   <div class="panel-heading">
     <h2 class="panel-title">YOUR PROFILE:</h2>
   </div>
@@ -17,21 +17,43 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-  <h2>Personality Type:</h2>
-    <h2>{{vm.profile.pType.acronym}}</h2>
+  <h4>Personality Type:</h4>
+    <h1>{{vm.profile.pType.acronym}}</h1>
   </div>
 </div>
-
 <div class="panel panel-default">
   <div class="panel-heading">
-  <h2>Personality Persona:</h2>
-    <h3>{{vm.profile.pType.nickname}}</h3>
+  <h4>Personality Persona:</h4>
+    <h2>{{vm.profile.pType.nickname}}</h2>
   </div>
 </div>
-
 <div class="panel panel-default">
   <div class="panel-heading">
-  <h2>Description:</h2>
-    <h4>{{vm.profile.pType.detail}}</h4>
+  <h4>Description:</h4>
+    <h2>{{vm.profile.pType.detail}}</h2>
+  </div>
+</div>
+<div class="panel panel-success">
+  <div class="panel-heading">
+  <h4>Ideal Matches:</h4>
+    <h1>{{vm.profile.pType.idealMatches}}</h1>
+  </div>
+</div>
+<div class="panel panel-info">
+  <div class="panel-heading">
+  <h4>Kindred Spirits:</h4>
+    <h1>{{vm.profile.pType.kindredSpirits}}</h1>
+  </div>
+</div>
+<div class="panel panel-warning">
+  <div class="panel-heading">
+  <h4>Compliments:</h4>
+    <h1>{{vm.profile.pType.compliments}}</h1>
+  </div>
+</div>
+<div class="panel panel-danger">
+  <div class="panel-heading">
+  <h4>Opposites:</h4>
+    <h1>{{vm.profile.pType.opposites}}</h1>
   </div>
 </div>

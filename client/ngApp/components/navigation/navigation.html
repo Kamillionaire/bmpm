@@ -1,10 +1,10 @@
 
 <ul class="nav nav-pills">
   <li><button class = "btn btn-primary" ui-sref="main.home">Home</button></li>
-  <li><button class = "btn btn-primary" ui-sref="main.login" ng-if = "!vm.isAuthenticated">Login</button></li>
-  <li><button class = "btn btn-primary" ui-sref="main.register" ng-if = "!vm.isAuthenticated">Register</button></li>
-  <li><button class = "btn btn-danger" ng-if = "vm.isAuthenticated" ng-click = "vm.logout()">Logout</button></li>
-  <li><button class = "btn btn-success" ng-if = "vm.isAuthenticated" ng-click = "vm.delete()">Delete</button></li>
+  <li><button class = "btn btn-success" ui-sref="main.login" ng-if = "!vm.isAuthenticated">Login</button></li>
+  <li><button class = "btn btn-info" ui-sref="main.register" ng-if = "!vm.isAuthenticated">Register</button></li>
+  <li><button class = "btn btn-warning" ng-if = "vm.isAuthenticated" ng-click = "vm.logout()">Logout</button></li>
+  <!-- <li><button class = "btn btn-danger" ng-if = "vm.isAuthenticated" ng-click = "vm.delete()">Delete</button></li> -->
+  <li><button class = "btn btn-danger" ng-click="vm.goToState('main.usersIndex')" ng-if = "vm.isAuthenticated && vm.isAuthorized('admin')">Users Index</button></li>
 
-  <a><li target = "_blank" href ="https://www.16personalities.com/free-personality-test"><button class = "btn btn-info" ng-if = "!vm.isAuthenticated">We Like This Quiz!</button></li></a>
 </ul>

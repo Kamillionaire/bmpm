@@ -37,9 +37,9 @@ mongoose.connection.on('connected', () => {
   console.log(__dirname)
 
   // TODO
-  //if dev PTypes do not exist, run this
+  // if dev PTypes do not exist, run this
   // if(dev) {
-    // (only drop data and seed if there are no data types)
+  //   // (only drop data and seed if there are no data types)
   //   mongoose.connection.db.dropDatabase();
   //     let s=new PTypesSeeds();
   //     s.createSeeds();

@@ -1,11 +1,8 @@
-/// <reference types="angular" />
-/// <reference types="angular-resource" />
-/// <reference types="angular-ui-router" />
-/// <reference types="ngstorage" />
 var BMPM;
 (function (BMPM) {
-    angular.module('bmpm', ['ngResource', 'ui.router', 'ngStorage', 'ui.bootstrap'])
-        .config(function ($resourceProvider, $stateProvider, $urlRouterProvider, $locationProvider) {
+    angular.module('bmpm', ['ngResource', 'ui.router', 'ngStorage', 'ui.bootstrap', 'ngTable'
+    ])
+        .config(function ($resourceProvider, $stateProvider, $urlRouterProvider, $locationProvider, USER_ROLES) {
         $stateProvider
             .state('main', {
             url: '',
@@ -45,13 +42,20 @@ var BMPM;
             resolve: {
                 profile: function (ProfileService, $stateParams) { return ProfileService.getProfile($stateParams['username']); }
             }
+        })
+            .state('main.usersIndex', {
+            url: '/usersIndex',
+            parent: 'main',
+            template: '<users-index></users-index>',
+            data: {
+                authorizedRoles: [USER_ROLES.admin]
+            }
         });
         $urlRouterProvider.otherwise('/');
         $locationProvider.html5Mode(true);
     })
         .factory('_', ['$window',
         function ($window) {
-            // place lodash include before angular
             return $window._;
         }
     ])
@@ -77,7 +81,6 @@ var BMPM;
                 if (authorizedRoles && !Session.isAuthorized(authorizedRoles)) {
                     event.preventDefault();
                     if (Session.isAuthenticated()) {
-                        //TODO dialog
                         $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
                         $state.go('home');
                     }
@@ -88,7 +91,6 @@ var BMPM;
                 }
             });
             $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
-                // this is required if you want to prevent the $UrlRouter reverting the URL to the previous valid location
                 event.preventDefault();
             });
         }

@@ -4,12 +4,14 @@
 /// <reference types="ngstorage" />
 
 namespace BMPM {
-  angular.module('bmpm', ['ngResource', 'ui.router','ngStorage', 'ui.bootstrap'])
+  angular.module('bmpm', ['ngResource', 'ui.router','ngStorage', 'ui.bootstrap','ngTable'
+])
     .config((
       $resourceProvider: ng.resource.IResourceServiceProvider,
       $stateProvider: ng.ui.IStateProvider,
       $urlRouterProvider: ng.ui.IUrlRouterProvider,
-      $locationProvider: ng.ILocationProvider
+      $locationProvider: ng.ILocationProvider,
+      USER_ROLES
     ) => {
       $stateProvider
         .state('main', {
@@ -49,6 +51,15 @@ namespace BMPM {
           template: '<profile profile="$resolve.profile"></profile>',
           resolve: {
             profile: (ProfileService, $stateParams) => ProfileService.getProfile($stateParams['username'])
+          }
+
+        })
+        .state('main.usersIndex', {
+          url: '/usersIndex',
+          parent: 'main',
+          template: '<users-index></users-index>',
+          data:{
+            authorizedRoles:[USER_ROLES.admin]
           }
 
         })

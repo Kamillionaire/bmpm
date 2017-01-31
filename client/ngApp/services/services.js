@@ -28,6 +28,9 @@ var BMPM;
             UserService.prototype.deleteUser = function (id) {
                 return this.UserResource.delete(id).$promise;
             };
+            UserService.prototype.listUsers = function () {
+                return this.UserResource.query().$promise;
+            };
             return UserService;
         }());
         Services.UserService = UserService;
@@ -82,19 +85,6 @@ var BMPM;
         }());
         Services.Session = Session;
         ;
-        var deleteProfile = (function () {
-            function deleteProfile() {
-            }
-            deleteProfile.prototype.getUser = function () {
-                return this.deleteProfile['user'] || {};
-            };
-            deleteProfile.prototype.delete = function () {
-                this.deleteProfile.$reset();
-                this.deleteProfile['user'] = {};
-            };
-            return deleteProfile;
-        }());
-        Services.deleteProfile = deleteProfile;
         angular.module('bmpm').service('Session', Session);
         angular.module('bmpm').service('UserService', UserService);
         angular.module('bmpm').service('ProfileService', ProfileService);

@@ -44,7 +44,7 @@
                     <span class="sr-only">Split button!</span>
                 </button>
                 <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
-                    <li ng-click="vm.user.state = state" ng-repeat="state in vm.states" role="menuitem">{{state}}</li>
+                    <li ng-click="vm.user.state = state" ng-repeat="state in vm.states" role="menuitem"><a>{{state}}</a></li>
                 </ul>
             </div>
 
@@ -62,7 +62,7 @@
 
             <div class="form-group">
                 <div class="col-xs-12">
-                    <button class="btn btn-lg btn-primary" type="submit">Submit</button>
+                    <button class="btn btn-lg btn-info" type="submit">Submit</button>
                 </div>
             </div>
 
