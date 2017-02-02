@@ -7,9 +7,6 @@ import {PType} from '../models/PTypes';
 import Profile from '../models/Profile';
 let router = express.Router();
 
-//TODO
-// 1. edit current user, user permissions
-// 2. get user by ID
 
 router.get('/profile/:username', (req, res, next) => {
   Profile.findOne({

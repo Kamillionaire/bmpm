@@ -11,7 +11,7 @@
     "start": "tsc && concurrently \"nodemon\" \"npm run sass:w\""
   },
   "engine": "6.9.4",
-  "author": "",
+  "author": "Kamilah Uddin",
   "license": "ISC",
   "dependencies": {
     "@types/angular": "^1.5.22",

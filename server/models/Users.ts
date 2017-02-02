@@ -34,23 +34,6 @@ let UserSchema = new mongoose.Schema({
   roles: {type: Array, default: ['user']}
 });
 
-// UserSchema.pre('save', true, function(next, done) {
-//     if (this.isNew) {
-//       console.log('isNew')
-//         Profile.create().then(() => {
-//           next();
-//             done();
-//
-//         }).catch((e) => {
-//             var err = new Error(e);
-//             next(err);
-//             done();
-//         })
-//     } else {
-//       next();
-//       done();
-//     }
-// });
 
 UserSchema.method('setPassword', function(password) {
   this.salt = crypto.randomBytes(16).toString('hex');

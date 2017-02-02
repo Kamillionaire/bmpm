@@ -27,16 +27,12 @@ if(dev){
 require("./config/passport");
 
 //db connections
-// mongodb://user:password@sub.mlab.com:39482/myapp
-// instead of process if you don't use dotenv package
 mongoose.connect(process.env.MONGO_URI)
 
 //optional
 mongoose.connection.on('connected', () => {
   console.log('mongoose connected');
-  console.log(__dirname)
 
-  // TODO
   // if dev PTypes do not exist, run this
   // if(dev) {
   //   // (only drop data and seed if there are no data types)
@@ -45,6 +41,7 @@ mongoose.connection.on('connected', () => {
   //     s.createSeeds();
   // }
 
+// creates admin in database.
   Users.findOne({username: 'admin'}, (err, user) => {
     if(err) return;
     if(user) return;
@@ -63,11 +60,6 @@ mongoose.connection.on('connected', () => {
       });
   });
 });
-
-//optional
-// mongoose.connection.on('error', (e) => {
-//   throw new Error(e);
-// });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
