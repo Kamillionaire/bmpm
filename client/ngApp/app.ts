@@ -12,6 +12,7 @@ namespace BMPM {
       $urlRouterProvider: ng.ui.IUrlRouterProvider,
       $locationProvider: ng.ILocationProvider,
       USER_ROLES
+      
     ) => {
       $stateProvider
         .state('main', {

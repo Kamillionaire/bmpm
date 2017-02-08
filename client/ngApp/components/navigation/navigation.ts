@@ -3,7 +3,7 @@ namespace BMPM.Components {
     const template = '/client/ngApp/components/navigation/navigation.html';
     export class Navigation {
         public isAuthenticated;
-        public alerts =[];
+        public alerts = [];
         public currentUser;
         constructor(
             private $state: ng.ui.IStateService,

@@ -6,7 +6,7 @@ export interface IProfile extends mongoose.Document {
   dob: {type: String, required: true},
   state: { type: String, required: true},
   pType: { type: String, ref: 'PType', required: true},
-  picture:string,
+  picture:String,
   username:{type: String, required:true, unique: true, lowercase: true},
   nickname:String,
   detail:String

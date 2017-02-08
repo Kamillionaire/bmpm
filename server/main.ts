@@ -9,6 +9,7 @@ const MongoStore = require('connect-mongo')(session)
 import Users from './models/Users';
 import {PTypesSeeds} from './models/seeds/pTypes';
 import Profile from './models/Profile';
+
 //express routes
 import * as routes from './routes/index';
 

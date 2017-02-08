@@ -3,6 +3,7 @@ import * as crypto from 'crypto';
 import * as jwt from 'jsonwebtoken';
 import {PType, IPType} from './../models/PTypes';
 import Profile from './../models/Profile';
+
 export interface IFacebook {
   token: string,
   name: string,
