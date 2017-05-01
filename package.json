@@ -30,7 +30,7 @@
     "@types/lodash": "^4.14.50",
     "@types/mongodb": "^2.1.36",
     "@types/mongoose": "^4.7.2",
-    "@types/ngstorage": "^0.3.33",
+    "@types/ngstorage": "^0.3.34",
     "@types/passport": "^0.3.1",
     "@types/passport-facebook": "^1.0.29",
     "@types/passport-local": "^1.0.29",

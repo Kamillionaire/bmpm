@@ -1,6 +1,8 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var router = express.Router();
+//Express has Express.Request but the interface isn't very good...  requires overrides
 function setSession(req, res, next, user) {
     var token = user.generateJWT();
     return req.logIn(user, function (err) {
@@ -41,5 +43,4 @@ var methods = {
     isAdmin: isAdmin,
     deleteProfile: deleteProfile
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = methods;

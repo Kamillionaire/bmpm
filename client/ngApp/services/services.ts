@@ -58,7 +58,7 @@ namespace BMPM.Services {
     export class Session {
         public user;
         constructor(
-            private $sessionStorage: angular.storage.IStorageService
+            private $sessionStorage: ng.storage.IStorageService
         ) {
             this.user = this.getUser();
         }

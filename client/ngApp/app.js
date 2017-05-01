@@ -1,3 +1,7 @@
+/// <reference types="angular" />
+/// <reference types="angular-resource" />
+/// <reference types="angular-ui-router" />
+/// <reference types="ngstorage" />
 var BMPM;
 (function (BMPM) {
     angular.module('bmpm', ['ngResource', 'ui.router', 'ngStorage', 'ui.bootstrap', 'ngTable'
@@ -19,6 +23,7 @@ var BMPM;
                         return $state.current.name;
                     }]
             }
+            // component:'mainApp'
         })
             .state('main.home', {
             url: '/',
@@ -56,6 +61,7 @@ var BMPM;
     })
         .factory('_', ['$window',
         function ($window) {
+            // place lodash include before angular
             return $window._;
         }
     ])
@@ -81,6 +87,7 @@ var BMPM;
                 if (authorizedRoles && !Session.isAuthorized(authorizedRoles)) {
                     event.preventDefault();
                     if (Session.isAuthenticated()) {
+                        //TODO dialog
                         $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
                         $state.go('home');
                     }
@@ -91,6 +98,7 @@ var BMPM;
                 }
             });
             $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+                // this is required if you want to prevent the $UrlRouter reverting the URL to the previous valid location
                 event.preventDefault();
             });
         }
