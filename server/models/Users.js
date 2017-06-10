@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var mongoose = require("mongoose");
-var crypto = require("crypto");
-var jwt = require("jsonwebtoken");
-var UserSchema = new mongoose.Schema({
+const mongoose = require("mongoose");
+const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
+let UserSchema = new mongoose.Schema({
     username: { type: String, lowercase: true, unique: true, required: true },
     passwordHash: { type: String, select: false },
     salt: { type: String, select: false },
@@ -20,7 +20,7 @@ UserSchema.method('setPassword', function (password) {
     this.passwordHash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
 });
 UserSchema.method('validatePassword', function (password) {
-    var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
+    let hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
     return (hash === this.passwordHash);
 });
 UserSchema.method('generateJWT', function () {

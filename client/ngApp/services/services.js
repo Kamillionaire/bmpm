@@ -2,87 +2,84 @@ var BMPM;
 (function (BMPM) {
     var Services;
     (function (Services) {
-        var UserService = (function () {
-            function UserService($resource) {
+        class UserService {
+            constructor($resource) {
                 this.$resource = $resource;
                 this.LogoutResource = $resource('/api/logout/local');
                 this.LoginResource = $resource('/api/login/local');
                 this.RegisterResource = $resource('/api/Register');
                 this.UserResource = $resource('/api/users/:username', { username: '@username' });
             }
-            UserService.prototype.login = function (user) {
+            login(user) {
                 return this.LoginResource.save(user).$promise;
-            };
-            UserService.prototype.logout = function () {
+            }
+            logout() {
                 return this.LogoutResource.get().$promise;
-            };
-            UserService.prototype.register = function (user) {
+            }
+            register(user) {
                 return this.RegisterResource.save(user).$promise;
-            };
-            UserService.prototype.getUser = function (id) {
+            }
+            getUser(id) {
                 return this.UserResource.get(id).$promise;
-            };
-            UserService.prototype.getCurrentUser = function () {
+            }
+            getCurrentUser() {
                 return this.$resource('/api/currentuser').get().$promise;
-            };
-            UserService.prototype.deleteUser = function (username) {
+            }
+            deleteUser(username) {
                 return this.UserResource.delete({ username: username }).$promise;
-            };
-            UserService.prototype.listUsers = function () {
+            }
+            listUsers() {
                 return this.UserResource.query().$promise;
-            };
-            return UserService;
-        }());
+            }
+        }
         Services.UserService = UserService;
-        var ProfileService = (function () {
-            function ProfileService($resource) {
+        class ProfileService {
+            constructor($resource) {
                 this.$resource = $resource;
                 this.ProfileResource = $resource('/api/profile/:username', { username: '@username' });
             }
-            ProfileService.prototype.getProfile = function (username) {
+            getProfile(username) {
                 return this.ProfileResource.get({ username: username }).$promise;
-            };
-            return ProfileService;
-        }());
+            }
+        }
         Services.ProfileService = ProfileService;
         ;
-        var Session = (function () {
-            function Session($sessionStorage) {
+        class Session {
+            constructor($sessionStorage) {
                 this.$sessionStorage = $sessionStorage;
                 this.user = this.getUser();
             }
-            Session.prototype.create = function (user) {
+            create(user) {
                 this.$sessionStorage['user'] = user;
-            };
-            Session.prototype.isAuthenticated = function () {
-                var user = this.getUser();
+            }
+            isAuthenticated() {
+                let user = this.getUser();
                 return !!user['username'];
-            };
-            Session.prototype.isAuthorized = function (roles) {
-                var user = this.getUser();
+            }
+            isAuthorized(roles) {
+                let user = this.getUser();
                 if (!user['roles']) {
                     return false;
                 }
                 if (!angular.isArray(roles)) {
                     roles = [roles];
                 }
-                return roles.some(function (v, k) {
-                    for (var i in user['roles']) {
+                return roles.some((v, k) => {
+                    for (let i in user['roles']) {
                         if (user['roles'][i] === v) {
                             return true;
                         }
                     }
                 });
-            };
-            Session.prototype.getUser = function () {
+            }
+            getUser() {
                 return this.$sessionStorage['user'] || {};
-            };
-            Session.prototype.destroy = function () {
+            }
+            destroy() {
                 this.$sessionStorage.$reset();
                 this.$sessionStorage['user'] = {};
-            };
-            return Session;
-        }());
+            }
+        }
         Services.Session = Session;
         ;
         angular.module('bmpm').service('Session', Session);

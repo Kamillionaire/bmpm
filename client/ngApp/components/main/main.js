@@ -2,15 +2,14 @@ var BMPM;
 (function (BMPM) {
     var Components;
     (function (Components) {
-        var name = 'mainApp';
-        var template = '/client/ngApp/components/main/main.html';
-        var Main = (function () {
-            function Main(UserService, $state) {
+        const name = 'mainApp';
+        const template = '/client/ngApp/components/main/main.html';
+        class Main {
+            constructor(UserService, $state) {
                 this.UserService = UserService;
                 this.$state = $state;
             }
-            return Main;
-        }());
+        }
         Components.Main = Main;
         angular.module('bmpm').component(name, {
             templateUrl: template,

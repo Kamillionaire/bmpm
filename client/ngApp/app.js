@@ -6,20 +6,20 @@ var BMPM;
 (function (BMPM) {
     angular.module('bmpm', ['ngResource', 'ui.router', 'ngStorage', 'ui.bootstrap', 'ngTable'
     ])
-        .config(function ($resourceProvider, $stateProvider, $urlRouterProvider, $locationProvider, USER_ROLES) {
+        .config(($resourceProvider, $stateProvider, $urlRouterProvider, $locationProvider, USER_ROLES) => {
         $stateProvider
             .state('main', {
             url: '',
             abstract: true,
             template: '<main-app></main-app>',
             resolve: {
-                currentUser: ['Session', function (Session) {
+                currentUser: ['Session', (Session) => {
                         return Session.getUser();
                     }],
-                isAuthenticated: ['Session', function (Session) {
+                isAuthenticated: ['Session', (Session) => {
                         return Session.isAuthenticated();
                     }],
-                currentNavItem: ['$state', function ($state) {
+                currentNavItem: ['$state', ($state) => {
                         return $state.current.name;
                     }]
             }
@@ -45,7 +45,7 @@ var BMPM;
             parent: 'main',
             template: '<profile profile="$resolve.profile"></profile>',
             resolve: {
-                profile: function (ProfileService, $stateParams) { return ProfileService.getProfile($stateParams['username']); }
+                profile: (ProfileService, $stateParams) => ProfileService.getProfile($stateParams['username'])
             }
         })
             .state('main.usersIndex', {
@@ -73,16 +73,16 @@ var BMPM;
         '$state',
         '_',
         'AUTH_EVENTS',
-        function ($rootScope, UserService, $sessionStorage, Session, $state, _, AUTH_EVENTS) {
-            $rootScope.$on('$stateChangeStart', function (event, next) {
-                UserService.getCurrentUser().then(function (user) {
+        ($rootScope, UserService, $sessionStorage, Session, $state, _, AUTH_EVENTS) => {
+            $rootScope.$on('$stateChangeStart', (event, next) => {
+                UserService.getCurrentUser().then((user) => {
                     $sessionStorage.user = user;
                     Session.user = Session.getUser();
-                }).catch(function (user) {
+                }).catch((user) => {
                     $sessionStorage.user = user;
                     Session.user = Session.getUser();
                 });
-                var authorizedRoles = !_.isUndefined(next.data, 'authorizedRoles')
+                let authorizedRoles = !_.isUndefined(next.data, 'authorizedRoles')
                     ? next.data.authorizedRoles : false;
                 if (authorizedRoles && !Session.isAuthorized(authorizedRoles)) {
                     event.preventDefault();

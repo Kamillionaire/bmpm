@@ -8,7 +8,7 @@ namespace main.seeds {
       idealMatches:'ISTJ, INTP, ENTJ', kindredSpirits:'INFP, INFJ, ENTP, ENFJ', compliments:'ISTP, ESTP, ESTJ, ENFP', opposites:'ISFP, ISFJ, ESFP, ESFJ'},
       {acronym:'INTP', nickname:'The Logician', detail:'Innovative inventors with an unquenchable thirst for knowledge.',
       idealMatches:'INTJ, INFP, ENTP', kindredSpirits:'ISTP, INFJ, ENTJ, ENFP', compliments:'ISTJ, ISFP, ESTP, ENFJ', opposites:'ESTJ, ISFJ, ESFP, ESFJ'},
-      {acronym:'ENTJ', nickname:'The Comander', detail:'Bold, imaginative and strong-willed leaders, always finding a way – or making one.',
+      {acronym:'ENTJ', nickname:'The Commander', detail:'Bold, imaginative and strong-willed leaders, always finding a way – or making one.',
       idealMatches:'INTJ, ESTJ, ENTP', kindredSpirits:'ISTJ, INTP, ENFP, ENFJ', compliments:'ISTP, INFJ, ESTP, ESFJ', opposites:'ISFP, ISFJ, INFP, ESFP'},
       {acronym:'ENTP', nickname:'The Debater', detail:'Smart and curious thinkers who cannot resist an intellectual challenge.',
       idealMatches:'INTP, ENTJ, ENFP', kindredSpirits:'INTJ, INFP, ESTP, ENFJ', compliments:'ISTP, INFJ, ESTJ, ESFP', opposites:'ISTJ, ISFP, ISFJ, ESFJ'},

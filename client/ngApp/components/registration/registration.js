@@ -2,33 +2,30 @@ var BMPM;
 (function (BMPM) {
     var Components;
     (function (Components) {
-        var name = 'registration';
-        var template = '/client/ngApp/components/registration/registration.html';
-        var Registration = (function () {
-            function Registration(UserService, $state, STATES, $http) {
-                var _this = this;
+        const name = 'registration';
+        const template = '/client/ngApp/components/registration/registration.html';
+        class Registration {
+            constructor(UserService, $state, STATES, $http) {
                 this.UserService = UserService;
                 this.$state = $state;
                 this.user = { dob: new Date() };
                 this.alerts = [];
-                $http.get('/api/pTypes').then(function (res) {
-                    _this.pTypes = res.data;
-                }).catch(function (e) {
+                $http.get('/api/pTypes').then((res) => {
+                    this.pTypes = res.data;
+                }).catch((e) => {
                     throw new Error(e);
                 });
                 this.states = STATES.all;
             }
-            Registration.prototype.register = function () {
-                var _this = this;
-                this.UserService.register(this.user).then(function (result) {
-                    _this.$state.go('main.login', null, { reload: true, notify: true });
-                }).catch(function (err) {
+            register() {
+                this.UserService.register(this.user).then((result) => {
+                    this.$state.go('main.login', null, { reload: true, notify: true });
+                }).catch((err) => {
                     console.log(err);
-                    _this.alerts.push({ type: 'warning', message: 'Please fill out all fields.' });
+                    this.alerts.push({ type: 'warning', message: 'Please fill out all fields.' });
                 });
-            };
-            return Registration;
-        }());
+            }
+        }
         Components.Registration = Registration;
         angular.module('bmpm').component(name, {
             templateUrl: template,
